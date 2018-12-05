@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
+	<h2>This is a test</h2>
 	<?php
 	$errormsg = "";
 	//DATABASE CONNECTION

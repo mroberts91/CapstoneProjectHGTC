@@ -46,6 +46,10 @@
 						<td><input type="text" name="techschedule" id="techschedule"
 						value = <?php echo $_POST['techschedule']; ?>></td>
 					</tr>
+					<tr>
+						<th>Test</th>
+						<td>This is a test</td>
+					</tr>
 				</table>
 				<input type="submit" name = "thesubmit" value="Enter">
 			</fieldset>

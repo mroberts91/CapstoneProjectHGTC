@@ -7,7 +7,7 @@
 	</head>
 	<body>
 	<h1>Hello World</h1>
-  <h2>This is a test</h2>
+  	<h2>This is a test</h2>
 	<?php
 	$errormsg = "";
 	//DATABASE CONNECTION

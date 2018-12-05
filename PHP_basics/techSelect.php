@@ -12,7 +12,7 @@
 	require_once "connect.php";
 	if( isset($_POST['thesubmit']) )
 		{
-			$sqlselect = "SELECT * from technician where dbtechname like CONCAT('%', :bvtechname, '%')
+			$sqlselect = "SELECT dbtechtitle from technician where dbtechname like CONCAT('%', :bvtechname, '%')
 							AND dbtechtitle like CONCAT('%', :bvtechtitle, '%')
 							AND dbtechschedule like CONCAT('%', :bvtechschedule, '%')";
 			$result = $db->prepare($sqlselect);

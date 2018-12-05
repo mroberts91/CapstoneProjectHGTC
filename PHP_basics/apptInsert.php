@@ -72,7 +72,7 @@
 		}//if isset submit
 
 
-	$sqlselect = "select appointment.dbapptdate, customer.dbcustname, technician.dbtechname
+	$sqlselect = "select appointment.dbapptdate, customer.dbcustname
 				from appointment, customer, technician
 				where appointment.dbapptcustomer = customer.dbcustid
 				and appointment.dbappttech = technician.dbtechid";

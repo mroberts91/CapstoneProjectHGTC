@@ -1,7 +1,7 @@
 <?php
 class DBClass {
 
-    private $host = "localhost";
+    private $host = "http://mrober23.istwebclass.org";
     private $username = "mrober23_michael";
     private $password = "password";
     private $database = "mrober23_php";

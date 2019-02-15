@@ -1,13 +1,29 @@
 <?php
-
-/**
- * A very simple PDO child , in order to make the use of PDO even
- * easier and prepare the statements only once.
- */
-class Data_Db extends PDO
+require(__DIR__."/../factories/ConnectionDataFactory.php");
+class Connection extends PDO
 {
-
     private $statements = array();
+
+    /**
+     * Connection constructor.
+     * @throws Exception - CONNECTION DATA OBJECT NOT FOUND
+     */
+    public function __construct()
+    {
+        $ConnectionData = ConnectionDataFactory::Create();
+
+        if ($ConnectionData === null || !is_a($ConnectionData, "ConnectionData")){
+            throw new Exception(
+                "CONNECTION DATA OBJECT NOT FOUND - PDO Connection requires a ConnectionData Object as a parameter."
+            );
+        }
+        parent::__construct(
+            $ConnectionData::$dsn,
+            $ConnectionData::$username,
+            $ConnectionData::$password,
+            $ConnectionData::$pdoOptions
+        );
+    }
 
     /**
      * Takes a sql statement and replacement values for question marks placeholders (if there are any) executes the query by a prepared statement and
@@ -28,7 +44,7 @@ class Data_Db extends PDO
         }
         if (substr_count($statement, "?") !== count($values)) {
             throw new Exception(
-                "PREPARED STATEMENT - Bind Parameters Mismatch : " . $statement
+                "PREPARED STATEMENT - Bind Parameters Count Mismatch : " . $statement
                 , 4561);
         }
         // Creating a prepared statment with passed in statement

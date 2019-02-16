@@ -1,5 +1,5 @@
 <?php
-class DataManager
+class _DataManager
 {
     /**
      * @var Connection $_conn - A PDO connection object for database operations

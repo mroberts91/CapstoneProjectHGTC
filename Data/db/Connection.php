@@ -44,7 +44,7 @@ class Connection extends PDO
         }
         if (substr_count($statement, "?") !== count($values)) {
             throw new Exception(
-                "PREPARED STATEMENT - Bind Parameters Count Mismatch : " . $statement
+                "PREPARED STATEMENT - Bind Parameters, ? Count Mismatch : " . $statement
                 , 4561);
         }
         // Creating a prepared statment with passed in statement

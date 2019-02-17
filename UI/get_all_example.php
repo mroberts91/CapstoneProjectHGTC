@@ -16,6 +16,7 @@ try{
 
 // Echo each object as human readable data.
 ?>
+<h1>PipelinesTest</h1>
 <table border>
     <thead>
     <tr>

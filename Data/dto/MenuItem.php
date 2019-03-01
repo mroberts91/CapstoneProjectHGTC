@@ -1,8 +1,10 @@
 <?php
+namespace Menu;
+use Core\_DataEntity;
 require_once __DIR__.'/_DataEntity.php';
 /**
  * Class MenuItem
- * DTO Object representing a single row in the menu_MenuItems table in the database.
+ * DTO Object representing a menu item from the Database.
  */
 class MenuItem extends _DataEntity
 {
@@ -11,6 +13,9 @@ class MenuItem extends _DataEntity
     private $ItemPrice;
     private $ItemCat;
 
+    /**
+     * MenuItem constructor.
+     */
     public function __construct()
     {
         $this->id_MenuItem = null;
@@ -63,7 +68,8 @@ class MenuItem extends _DataEntity
 
     // Getters
     /**
-     * @return int
+     * Getter
+     * @return int - The ID of the menu item.
      */
     public function getID()
     {
@@ -71,7 +77,8 @@ class MenuItem extends _DataEntity
     }
 
     /**
-     * @return string
+     * Getter
+     * @return string - The name of the menu item.
      */
     public function getName()
     {
@@ -79,7 +86,8 @@ class MenuItem extends _DataEntity
     }
 
     /**
-     * @return float
+     * Getter
+     * @return float - The price of the menu item.
      */
     public function getPrice()
     {
@@ -87,7 +95,8 @@ class MenuItem extends _DataEntity
     }
 
     /**
-     * @return int
+     * Getter
+     * @return int - The catagory of the menu item.
      */
     public function getCatagory()
     {

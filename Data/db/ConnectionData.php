@@ -1,4 +1,6 @@
 <?php
+namespace Connection;
+use PDO;
 class ConnectionData
 {
     private static $uri = "http://mrober23.istwebclass.org:3306";

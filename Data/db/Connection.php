@@ -1,4 +1,7 @@
 <?php
+namespace Connection;
+use \PDO;
+use Exception;
 require(__DIR__."/../factories/ConnectionDataFactory.php");
 class Connection extends PDO
 {
@@ -12,7 +15,7 @@ class Connection extends PDO
     {
         $ConnectionData = ConnectionDataFactory::Create();
 
-        if ($ConnectionData === null || !is_a($ConnectionData, "ConnectionData")){
+        if ($ConnectionData === null || !is_a($ConnectionData, "Connection\ExConnectionData")){
             throw new Exception(
                 "CONNECTION DATA OBJECT NOT FOUND - PDO Connection requires a ConnectionData Object as a parameter."
             );

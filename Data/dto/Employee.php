@@ -1,6 +1,13 @@
 <?php
+namespace Employee;
+use Core\_DataEntity;
 require_once __DIR__.'/_DataEntity.php';
 
+/**
+ * Class Employee
+ * @package Employee
+ * Represents a employee from the Database.
+ */
 class Employee extends _DataEntity
 {
     // Temp fields
@@ -9,6 +16,10 @@ class Employee extends _DataEntity
     private $Lastname;
     private $Department;
 
+    /**
+     * Employee constructor.
+     *
+     */
     public function __construct()
     {
         $this->id_Emp = null;

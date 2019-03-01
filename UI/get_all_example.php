@@ -1,4 +1,6 @@
 <?php
+use Connection\Connection;
+use Menu\MenuManager;
 require_once __DIR__."/../Data/init.php";
 require_once __DIR__."/../Data/db/Connection.php";
 require_once __DIR__."/../Data/managers/MenuManager.php";

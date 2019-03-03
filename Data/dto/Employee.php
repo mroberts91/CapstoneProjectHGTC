@@ -10,10 +10,21 @@ require_once __DIR__.'/_DataEntity.php';
  */
 class Employee extends _DataEntity
 {
-    // Temp fields
+    /**
+     * @var int Employee ID
+     */
     private $id_Emp;
+    /**
+     * @var string Employee Firstname
+     */
     private $Firstname;
+    /**
+     * @var string Employee Lastname
+     */
     private $Lastname;
+    /**
+     * @var int Department code / Permisson level
+     */
     private $Department;
 
     /**

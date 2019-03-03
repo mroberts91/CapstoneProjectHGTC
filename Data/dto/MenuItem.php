@@ -8,9 +8,21 @@ require_once __DIR__.'/_DataEntity.php';
  */
 class MenuItem extends _DataEntity
 {
+    /**
+     * @var int Menu Item ID
+     */
     private $id_MenuItem;
+    /**
+     * @var string Menu Item name
+     */
     private $ItemName;
+    /**
+     * @var float Menu Item Price
+     */
     private $ItemPrice;
+    /**
+     * @var int Menu Item Catagory - lookup value
+     */
     private $ItemCat;
 
     /**

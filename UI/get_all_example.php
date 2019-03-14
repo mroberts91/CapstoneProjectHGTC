@@ -5,7 +5,7 @@ require_once __DIR__."/../Data/init.php";
 require_once __DIR__."/../Data/db/Connection.php";
 require_once __DIR__."/../Data/managers/MenuManager.php";
 try{
-    // Create a new PDO Connection for injecting to the Manager
+    
     $db = new Connection();
     // Create a new manager that querys the DB
     $mm = new MenuManager($db);

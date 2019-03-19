@@ -1,20 +1,19 @@
 <?php
-namespace Employee;
+namespace Customer;
 use Core\_DataEntity;
-use Core\Department;
 require_once __DIR__.'/_DataEntity.php';
 
 /**
- * Class Employee
- * @package Employee
+ * Class Customer
+ * @package Customer
  * Represents a employee from the Database.
  */
-class Employee extends _DataEntity
+class Customer extends _DataEntity
 {
     /**
-     * @var int Employee ID
+     * @var int Customer ID
      */
-    private $id_Employee;
+    private $id_Customer;
     /**
      * @var int Department code / Permisson level
      */
@@ -24,40 +23,40 @@ class Employee extends _DataEntity
      */
     private $DepartmentName;
     /**
-     * @var string Employee Firstname
+     * @var string Customer Firstname
      */
     private $Firstname;
     /**
-     * @var string Employee Lastname
+     * @var string Customer Lastname
      */
     private $Lastname;
     /**
-     * @var string Employee Address
+     * @var string Customer Address
      */
     private $Address;
     /**
-     * @var string Employee City
+     * @var string Customer City
      */
     private $City;
     /**
-     * @var string Employee State
+     * @var string Customer State
      */
     private $State;
     /**
-     * @var string Employee Zip Code
+     * @var string Customer Zip Code
      */
     private $Zip;
     /**
-     * @var string Employee Company Email
+     * @var string Customer Company Email
      */
     private $Email;
 
     /**
-     * Employee constructor.
+     * Customer constructor.
      */
     public function __construct()
     {
-        $this->id_Employee = null;
+        $this->id_Customer = null;
         $this->id_Department = null;
         $this->DepartmentName = null;
         $this->Firstname = null;
@@ -70,10 +69,11 @@ class Employee extends _DataEntity
         parent::__construct();
     }
 
-    public function buildFromArray($array){
-        if (is_array($array)){
-            $this->id_Employee = $array['id_Employee'];
-            $this->id_Department =$array['id_Department'];
+    public function buildFromArray($array)
+    {
+        if (is_array($array)) {
+            $this->id_Customer = $array['id_Customer'];
+            $this->id_Department = $array['id_Department'];
             $this->DepartmentName = $array['Name'];
             $this->Firstname = $array['Firstname'];
             $this->Lastname = $array['Lastname'];
@@ -83,14 +83,27 @@ class Employee extends _DataEntity
             $this->Zip = $array['Zip'];
             $this->Email = $array['Email'];
             return true;
-        }else{
+        } else {
+            $this->IsValid = false;
+            return false;
+        }
+
+    }
+
+    public function buildForLogin($array){
+        if (is_array($array)) {
+            $this->id_Customer = $array['id_Customer'];
+
+            $this->Email = $array['Email'];
+            return true;
+        } else {
             $this->IsValid = false;
             return false;
         }
     }
 
-    public function buildFromParameters($id_Employee, $id_Department, $DepartmentNam, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email){
-        $this->id_Employee = $id_Employee;
+    public function buildFromParameters($id_Customer, $id_Department, $DepartmentNam, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email){
+        $this->id_Customer = $id_Customer;
         $this->id_Department = $id_Department;
         $this->DepartmentName = $DepartmentNam;
         $this->Firstname = $Firstname;
@@ -105,9 +118,9 @@ class Employee extends _DataEntity
     /**
      * @return int
      */
-    public function getIdEmployee()
+    public function getIdCustomer(): int
     {
-        return $this->id_Employee;
+        return $this->id_Customer;
     }
 
     /**

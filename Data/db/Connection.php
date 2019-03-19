@@ -16,7 +16,7 @@ class Connection extends PDO
     {
         $ConnectionData = ConnectionDataFactory::Create();
 
-        if ($ConnectionData === null || !is_a($ConnectionData, "Connection\ExConnectionData")){
+        if ($ConnectionData === null || !is_a($ConnectionData, "Connection\ConnectionData")){
             throw new Exception(
                 "CONNECTION DATA OBJECT NOT FOUND - PDO Connection requires a ConnectionData Object as a parameter."
             );
@@ -37,7 +37,7 @@ class Connection extends PDO
      * @throws Exception
      * @return array|null - Returns the result (if any) as an assoc array with the first key, the index num in the row of results, the second the name of result column and the value.
      */
-    public function request($statement, $values = null)
+    public function SQLRequest($statement, $values = null)
     {
         $result = array();
         $statement = trim($statement);

@@ -10,7 +10,7 @@ c.id_Customer
 ,cd.City 
 ,cd.State 
 ,cd.Zip 
-,cd.Email 
+,cd.Email
 FROM cust_Customer c 
 JOIN cust_CustomerDetail cd 
 	ON cd.id_Customer = c.id_Customer
@@ -57,63 +57,3 @@ e.id_Employee
 FROM emp_Employee e
 JOIN emp_EmployeeLogin el
 	ON el.id_Employee = e.id_Employee
-
---CREATE PROCEDURE sp_cust_CreateNewCustomer(
---	IN pFirstname VARCHAR(50),
---    IN pLastname VARCHAR(50),
---    IN pAddress VARCHAR(100),
---    IN pCity VARCHAR(50),
---    IN pState VARCHAR(50),
---    IN pZip VARCHAR(15),
---    IN pEmail VARCHAR(100)
---    IN pPassword VARCHAR(250)
---)
---BEGIN
---INSERT INTO cust_Customer
---(id_Department)
---VALUES
---(5000)
-
---DECLARE pid INT
---SELECT pid = id_Customer 
---FROM cust_Customer
---ORDER BY id_Customer DESC
---LIMIT 1
-
---INSERT INTO cust_CustomerDetail
---(
--- 	`id_Customer`
--- 	,`Firstname`
--- 	,`Lastname`
--- 	,`Address`
--- 	,`City`
--- 	,`State`
--- 	,`Zip`
--- 	,`Email`
---)
--- VALUES
--- (
---     pid
---     ,pFirstname
---     ,pLastname
---     ,pAddress
---     ,pCity
---     ,pState
---     ,pZip
---     ,pEmail
-    
--- )
- 
--- INSERT INTO cust_CustomerLogin
--- (
---     id_Customer
---     ,Password
---     ,idTempPassword
--- )
--- VALUES
--- (
---     pid
---     ,pPassword
---     ,1
--- )
---END

@@ -50,6 +50,10 @@ class Customer extends _DataEntity
      * @var string Customer Company Email
      */
     private $Email;
+    /**
+     * @var string Password.
+     */
+    private $Password;
 
     /**
      * Customer constructor.
@@ -66,9 +70,14 @@ class Customer extends _DataEntity
         $this->State = null;
         $this->Zip = null;
         $this->Email = null;
+        $this->Password = null;
         parent::__construct();
     }
 
+    /**
+     * @param $array
+     * @return bool
+     */
     public function buildFromArray($array)
     {
         if (is_array($array)) {
@@ -82,6 +91,7 @@ class Customer extends _DataEntity
             $this->State = $array['State'];
             $this->Zip = $array['Zip'];
             $this->Email = $array['Email'];
+            $this->Password = $array['Password'];
             return true;
         } else {
             $this->IsValid = false;
@@ -90,6 +100,10 @@ class Customer extends _DataEntity
 
     }
 
+    /**
+     * @param $array
+     * @return bool
+     */
     public function buildForLogin($array){
         if (is_array($array)) {
             $this->id_Customer = $array['id_Customer'];
@@ -102,10 +116,23 @@ class Customer extends _DataEntity
         }
     }
 
-    public function buildFromParameters($id_Customer, $id_Department, $DepartmentNam, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email){
+    /**
+     * @param $id_Customer
+     * @param $id_Department
+     * @param $DepartmentName
+     * @param $Firstname
+     * @param $Lastname
+     * @param $Address
+     * @param $City
+     * @param $State
+     * @param $Zip
+     * @param $Email
+     * @param $Password
+     */
+    public function buildFromParameters($id_Customer, $id_Department, $DepartmentName, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email, $Password){
         $this->id_Customer = $id_Customer;
         $this->id_Department = $id_Department;
-        $this->DepartmentName = $DepartmentNam;
+        $this->DepartmentName = $DepartmentName;
         $this->Firstname = $Firstname;
         $this->Lastname = $Lastname;
         $this->Address = $Address;
@@ -113,6 +140,7 @@ class Customer extends _DataEntity
         $this->State = $State;
         $this->Zip = $Zip;
         $this->Email = $Email;
+        $this->Password = $Password;
     }
 
     /**
@@ -196,12 +224,126 @@ class Customer extends _DataEntity
     }
 
     /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->Password;
+    }
+
+    /**
      * @return bool
      */
     public function isValid(): bool
     {
         return $this->IsValid;
     }
+
+    /**
+     * @return array
+     */
+    public function getAsArray(): array
+    {
+        return array(
+            $this->Firstname,
+            $this->Lastname,
+            $this->Address,
+            $this->City,
+            $this->State,
+            $this->Zip,
+            $this->Email,
+            $this->Password
+        );
+    }
+
+    /**
+     * @param int $id_Customer
+     */
+    public function setIdCustomer(int $id_Customer): void
+    {
+        $this->id_Customer = $id_Customer;
+    }
+
+    /**
+     * @param int $id_Department
+     */
+    public function setIdDepartment(int $id_Department): void
+    {
+        $this->id_Department = $id_Department;
+    }
+
+    /**
+     * @param string $DepartmentName
+     */
+    public function setDepartmentName(string $DepartmentName): void
+    {
+        $this->DepartmentName = $DepartmentName;
+    }
+
+    /**
+     * @param string $Firstname
+     */
+    public function setFirstname(string $Firstname): void
+    {
+        $this->Firstname = $Firstname;
+    }
+
+    /**
+     * @param string $Lastname
+     */
+    public function setLastname(string $Lastname): void
+    {
+        $this->Lastname = $Lastname;
+    }
+
+    /**
+     * @param string $Address
+     */
+    public function setAddress(string $Address): void
+    {
+        $this->Address = $Address;
+    }
+
+    /**
+     * @param string $City
+     */
+    public function setCity(string $City): void
+    {
+        $this->City = $City;
+    }
+
+    /**
+     * @param string $State
+     */
+    public function setState(string $State): void
+    {
+        $this->State = $State;
+    }
+
+    /**
+     * @param string $Zip
+     */
+    public function setZip(string $Zip): void
+    {
+        $this->Zip = $Zip;
+    }
+
+    /**
+     * @param string $Email
+     */
+    public function setEmail(string $Email): void
+    {
+        $this->Email = $Email;
+    }
+
+    /**
+     * @param string $Password
+     */
+    public function setPassword(string $Password): void
+    {
+        $this->Password = $Password;
+    }
+
 
 
 }

@@ -1,9 +1,11 @@
 <?php
 namespace Customer;
 use Core\_DataManager;
-use Customer\Customer;
+use Core\PasswordUtils;
 use \Exception;
 require_once __DIR__."/_DataManager.php";
+require_once __DIR__."/../common/PasswordUtils.php";
+
 
 class CustomerManager extends _DataManager
 {
@@ -47,18 +49,46 @@ class CustomerManager extends _DataManager
         }
     }
 
+    /**
+     * @param $email
+     * @param $password
+     * @return bool | CustomerLogin Returns a CustomerLogin Object or else false if the credentials don't validate.
+     * @throws Exception
+     */
     public function checkCustomerLogin($email, $password){
         $result = $this->Connection->SQLRequest(
             "SELECT * FROM vw_cust_Login WHERE Email = ?", $email
         );
         if (count($result) > 0 ){
-            $customerArray = $this->buildReturnArrayFromResultSet($result);
-            $customer = $customerArray[0];
-            if (password_verify("", "")){
-                // TODO ADD Passowrd to Customer DTO Obj
-            }
+            $customerLoginArray = $this->buildCustomerLoginArrayFromResultSet($result);
+            $customer = $customerLoginArray[0];
+            return (PasswordUtils::verifyPassword($password, $customer->getPassword()))? $customer : false;
         } else{
             return false;
+        }
+    }
+
+    /**
+     * @param NewCustomer $customer - Customer DTO Object
+     * @throws Exception - Throws an exception if call to stored procedure failed.
+     */
+    public function createNewCustomer($customer){
+        try {
+            $array = array(
+                $customer->getFirstname(),
+                $customer->getLastname(),
+                $customer->getAddress(),
+                $customer->getCity(),
+                $customer->getState(),
+                $customer->getZip(),
+                $customer->getEmail(),
+                $customer->getPassword()
+            );
+            $this->Connection->SQLCallProcedure(
+                "CALL sp_cust_CreateNewCustomer(?,?,?,?,?,?,?,?)", $array
+            );
+        } catch (Exception $e){
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -73,7 +103,7 @@ class CustomerManager extends _DataManager
             $c = new Customer();
             if (!$c->buildFromArray($item)) {
                 throw new Exception("DB RESULT PROPAGATION ERROR - 
-                    Menu Item failed to initalize fields, OBJECT:  " . print_r($item),
+                    Menu Item failed to initialize fields, OBJECT:  " . print_r($item),
                     999
                 );
             }
@@ -82,7 +112,24 @@ class CustomerManager extends _DataManager
         return $rtn;
     }
 
-    private function buildLoginCheckCustomer($ResultSet){
-
+    /**
+     * @param $ResultSet
+     * @return CustomerLogin[]
+     * @throws Exception
+     */
+    private function buildCustomerLoginArrayFromResultSet($ResultSet){
+        $rtn = array();
+        foreach ($ResultSet as $item){
+            $c = new CustomerLogin();
+            if (!$c->buildFromArray($item)) {
+                throw new Exception("DB RESULT PROPAGATION ERROR - 
+                    Menu Item failed to initialize fields, OBJECT:  " . print_r($item),
+                    999
+                );
+            }
+            array_push($rtn, $c);
+        }
+        return $rtn;
     }
+
 }

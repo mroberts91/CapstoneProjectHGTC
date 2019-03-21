@@ -25,6 +25,7 @@ try{
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     // TODO Empty Checks on req post values
+    //TODO NEED!!! to implement email check when creating new emp or customer!!!!!
     if (!isset($_POST['lastname'])){$errormsg = '<p>Last Name is Required</p>'; }
     if (!isset($_POST['dept'])){$errormsg = '<p>Department is Required</p>'; }
     if (!isset($_POST['email'])){$errormsg = '<p>Email is Required</p>'; }

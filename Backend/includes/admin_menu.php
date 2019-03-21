@@ -11,7 +11,7 @@
         <a class="dropdown-item" href="#">Create Ticket</a>
         <a class="dropdown-item" href="#">Ticket Report</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Add Employee</a>
+        <a class="dropdown-item" href="create_employee.php">Add Employee</a>
         <a class="dropdown-item" href="#">Manage Employees</a>
     </div>
 </li>

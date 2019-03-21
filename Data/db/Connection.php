@@ -1,11 +1,20 @@
 <?php
 /** edit hehe  :P*/
 namespace Connection;
+use MongoDB\BSON\Type;
 use \PDO;
 use Exception;
-require(__DIR__."/../factories/ConnectionDataFactory.php");
+require(__DIR__ . "/../common/ConnectionDataFactory.php");
+
+/**
+ * Class Connection
+ * @package Connection
+ */
 class Connection extends PDO
 {
+    /**
+     * @var array
+     */
     private $statements = array();
 
     /**
@@ -16,7 +25,7 @@ class Connection extends PDO
     {
         $ConnectionData = ConnectionDataFactory::Create();
 
-        if ($ConnectionData === null || !is_a($ConnectionData, "Connection\ExConnectionData")){
+        if ($ConnectionData === null || !is_a($ConnectionData, "Connection\ConnectionData")){
             throw new Exception(
                 "CONNECTION DATA OBJECT NOT FOUND - PDO Connection requires a ConnectionData Object as a parameter."
             );
@@ -37,7 +46,7 @@ class Connection extends PDO
      * @throws Exception
      * @return array|null - Returns the result (if any) as an assoc array with the first key, the index num in the row of results, the second the name of result column and the value.
      */
-    public function request($statement, $values = null)
+    public function SQLRequest($statement, $values = null)
     {
         $result = array();
         $statement = trim($statement);
@@ -66,5 +75,39 @@ class Connection extends PDO
         // Fetct the assoc array and return.
         $result = $this->statements[$statement]->fetchAll();
         return $result;
+    }
+
+
+    /**
+     * @param $statement
+     * @param  array $values
+     * @throws Exception
+     */
+    public function SQLCallProcedure($statement, $values = null)
+    {
+        $result = array();
+        $statement = trim($statement);
+        if (is_null($values)) {
+            $values = array();
+        } else if (!is_array($values)) {
+            $values = array($values);
+        }
+        if (substr_count($statement, "?") !== count($values)) {
+            throw new Exception(
+                "PREPARED STATEMENT - Bind Parameters, ? Count Mismatch : " . $statement
+                , 4561);
+        }
+        // Creating a prepared statment with passed in statement
+        if (!isset($this->statements[$statement])) {
+            $this->statements[$statement] = $this->prepare($statement);
+        }
+
+        // Execute the prepared statment, passed bound values if any, or else and empty array.
+        $this->statements[$statement]->execute($values);
+
+        if ($this->statements[$statement]->errorCode() != "00000") {
+            $error = $this->statements[$statement]->errorInfo();
+            throw new Exception($error[2], (int)$error[0]);
+        }
     }
 }

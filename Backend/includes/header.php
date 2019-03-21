@@ -1,8 +1,14 @@
 <?php
+use Connection\Connection;
+use Connection\ConnectionDataFactory;
+use Connection\ConnectionData;
 require_once __DIR__ ."/session.php";
 require_once __DIR__ . "/loggedInCheck.php";
 require_once __DIR__ ."/init.php";
 require_once __DIR__ ."/functions.php";
+require_once __DIR__."/../../Data/db/Connection.php";
+require_once __DIR__."/../../Data/db/ConnectionData.php";
+require_once __DIR__."/../../Data/common/ConnectionDataFactory.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

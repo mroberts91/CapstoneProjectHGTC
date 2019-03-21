@@ -5,6 +5,7 @@ use Core\PasswordUtils;
 use \Exception;
 require_once __DIR__."/_DataManager.php";
 require_once __DIR__."/../dto/EmployeeLogin.php";
+require_once __DIR__."/../dto/NewEmployee.php";
 require_once __DIR__."/../common/PasswordUtils.php";
 
 /**
@@ -40,6 +41,7 @@ class EmployeeManager extends _DataManager
 
     /**
      * @param NewEmployee $employee
+     * @return bool
      * @throws \Exception
      */
     public function createNewEmployee($employee){
@@ -58,6 +60,7 @@ class EmployeeManager extends _DataManager
             $this->Connection->SQLCallProcedure(
                 "CALL sp_emp_CreateNewEmployee(?,?,?,?,?,?,?,?,?)", $array
             );
+            return true;
         } catch (Exception $e){
             throw new Exception($e->getMessage());
         }

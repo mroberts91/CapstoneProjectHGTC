@@ -1,7 +1,7 @@
 <?php
 namespace Employee;
 use Core\_DataEntity;
-require_once __DIR__."/../managers/_DataManager.php";
+require_once __DIR__."/../dto/_DataEntity.php";
 
 /**
  * Class EmployeeLogin

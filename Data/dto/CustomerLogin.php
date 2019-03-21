@@ -47,12 +47,15 @@ class CustomerLogin extends _DataEntity
 
     /**
      * @param $array
+     * @return bool
+     * @throws \Exception
      */
     public function buildFromArray($array){
         $this->id_Customer = $array['id_Customer'];
         $this->Email = $array['Email'];
         $this->Password = $array['Password'];
         $this->IsTempPassword = $array['isTempPassword'] == 1? true: false;
+        return true;
     }
 
     /**

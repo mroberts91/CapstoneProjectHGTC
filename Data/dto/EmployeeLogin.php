@@ -1,44 +1,37 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: micha
- * Date: 3/20/2019
- * Time: 9:42 PM
- */
-
-namespace Customer;
+namespace Employee;
 use Core\_DataEntity;
 require_once __DIR__."/../managers/_DataManager.php";
 
 /**
- * Class CustomerLogin
- * @package Customer
+ * Class EmployeeLogin
+ * @package Employee
  */
-class CustomerLogin extends _DataEntity
+class EmployeeLogin extends _DataEntity
 {
     /**
-     * @var int Customer ID
+     * @var int Employee ID
      */
-    private $id_Customer;
+    private $id_Employee;
     /**
-     * @var Customer Email
+     * @var Employee Email
      */
     private $Email;
     /**
-     * @var string Customer Hashed Password
+     * @var string Employee Hashed Password
      */
     private $Password;
     /**
-     * @var bool Is the Customer Password Temporary.
+     * @var bool Is the Employee Password Temporary.
      */
     private $IsTempPassword;
 
     /**
-     * CustomerLogin constructor.
+     * EmployeeLogin constructor.
      */
     public function __construct()
     {
-        $this->id_Customer = null;
+        $this->id_Employee = null;
         $this->Email = null;
         $this->Password = null;
         $this->IsTempPassword = null;
@@ -49,20 +42,20 @@ class CustomerLogin extends _DataEntity
      * @param $array
      */
     public function buildFromArray($array){
-        $this->id_Customer = $array['id_Customer'];
+        $this->id_Employee = $array['id_Employee'];
         $this->Email = $array['Email'];
         $this->Password = $array['Password'];
         $this->IsTempPassword = $array['isTempPassword'] == 1? true: false;
     }
 
     /**
-     * @param $id_Customer
+     * @param $id_Employee
      * @param $Email
      * @param $Password
      * @param $IsTempPass
      */
-    public function buildFromParams($id_Customer, $Email, $Password, $IsTempPass){
-        $this->id_Customer = $id_Customer;
+    public function buildFromParams($id_Employee, $Email, $Password, $IsTempPass){
+        $this->id_Employee = $id_Employee;
         $this->Email = $Email;
         $this->Password = $Password;
         $this->IsTempPassword = $IsTempPass;
@@ -71,15 +64,15 @@ class CustomerLogin extends _DataEntity
     /**
      * @return int
      */
-    public function getIdCustomer(): int
+    public function getIdEmployee(): int
     {
-        return $this->id_Customer;
+        return $this->id_Employee;
     }
 
     /**
-     * @return Customer
+     * @return Employee
      */
-    public function getEmail(): Customer
+    public function getEmail(): Employee
     {
         return $this->Email;
     }
@@ -109,17 +102,17 @@ class CustomerLogin extends _DataEntity
     }
 
     /**
-     * @param int $id_Customer
+     * @param int $id_Employee
      */
-    public function setIdCustomer(int $id_Customer): void
+    public function setIdEmployee(int $id_Employee): void
     {
-        $this->id_Customer = $id_Customer;
+        $this->id_Employee = $id_Employee;
     }
 
     /**
-     * @param Customer $Email
+     * @param Employee $Email
      */
-    public function setEmail(Customer $Email): void
+    public function setEmail(Employee $Email): void
     {
         $this->Email = $Email;
     }

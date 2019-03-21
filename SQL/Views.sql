@@ -52,8 +52,11 @@ CREATE VIEW vw_emp_Login
 AS
 SELECT
 e.id_Employee
+,ed.Email
 ,el.Password
 ,el.isTempPassword
 FROM emp_Employee e
+JOIN emp_EmployeeDetail ed
+  ON ed.id_Employee = e.id_Employee
 JOIN emp_EmployeeLogin el
 	ON el.id_Employee = e.id_Employee

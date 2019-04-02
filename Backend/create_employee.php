@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (!isset($_POST['email'])){$errormsg = '<p>Email is Required</p>'; }
     $lname = trim($_POST['lastname']);
     $dept = $_POST['dept'];
-    $email = $_POST['email'];
+    $email = strtolower($_POST['email']);
     $fname = isset($_POST['firstname'])? $_POST['firstname'] : null;
     $addr = isset($_POST['address'])? $_POST['address'] : null;
     $city = isset($_POST['city'])? $_POST['city'] : null;

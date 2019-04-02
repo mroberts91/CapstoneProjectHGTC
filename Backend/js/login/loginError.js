@@ -1,0 +1,3 @@
+$(function () {
+    $('#loginError').modal('show');
+});

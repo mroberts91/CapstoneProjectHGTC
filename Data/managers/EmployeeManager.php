@@ -67,6 +67,24 @@ class EmployeeManager extends _DataManager
     }
 
     /**
+     * @param $id
+     * @return bool | Employee - Returns and Employee Object or a false
+     * @throws Exception
+     */
+    public function getFullEmployeeById($id){
+        $result = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_emp_EmployeeFull WHERE id_Employee = ?",$id
+        );
+        if (count($result) > 0){
+            $empArray = $this->buildFullEmpArrayFromResultSet($result);
+            return $empArray[0];
+        } else{
+            return false;
+        }
+
+    }
+
+    /**
      * @param $ResultSet - The result set from a SQL query
      * @return EmployeeLogin[]
      * @throws Exception
@@ -75,6 +93,26 @@ class EmployeeManager extends _DataManager
         $rtn = array();
         foreach ($ResultSet as $item){
             $emp = new EmployeeLogin();
+            if (!$emp->buildFromArray($item)) {
+                throw new Exception("DB RESULT PROPAGATION ERROR - 
+                    Menu Item failed to initialize fields, OBJECT:  " . print_r($item),
+                    999
+                );
+            }
+            array_push($rtn, $emp);
+        }
+        return $rtn;
+    }
+
+    /**
+     * @param $ResultSet
+     * @return array
+     * @throws Exception
+     */
+    private function buildFullEmpArrayFromResultSet($ResultSet){
+        $rtn = array();
+        foreach ($ResultSet as $item){
+            $emp = new Employee();
             if (!$emp->buildFromArray($item)) {
                 throw new Exception("DB RESULT PROPAGATION ERROR - 
                     Menu Item failed to initialize fields, OBJECT:  " . print_r($item),

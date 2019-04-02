@@ -40,12 +40,14 @@ class EmployeeLogin extends _DataEntity
 
     /**
      * @param $array
+     * @return bool returns true if Initialized successfully
      */
     public function buildFromArray($array){
         $this->id_Employee = $array['id_Employee'];
         $this->Email = $array['Email'];
         $this->Password = $array['Password'];
         $this->IsTempPassword = $array['isTempPassword'] == 1? true: false;
+        return true;
     }
 
     /**

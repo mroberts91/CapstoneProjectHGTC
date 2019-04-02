@@ -7,16 +7,17 @@ CREATE PROCEDURE `sp_cust_CreateNewCustomer`(
    IN pState VARCHAR(50),
    IN pZip VARCHAR(15),
    IN pEmail VARCHAR(100),
-   IN pPassword VARCHAR(250)
+   IN pPassword VARCHAR(250),
+   IN pLocation INT
 )
 BEGIN
 
 DECLARE i INT;
 
 INSERT INTO cust_Customer
-(cust_Customer.id_Department)
+(cust_Customer.id_Department, cust_Customer.id_Location)
 VALUES
-(5000);
+(5000, pLocation);
 
 SELECT id_Customer
 INTO i

@@ -10,6 +10,7 @@ namespace Customer;
 
 
 use Core\_DataEntity;
+use Core\Location;
 use Core\PasswordUtils;
 require_once __DIR__."/../dto/_DataEntity.php";
 require_once __DIR__."/../common/PasswordUtils.php";
@@ -49,6 +50,10 @@ class NewCustomer extends _DataEntity
      * @var string Password.
      */
     private $Password;
+    /**
+     * @var int
+     */
+    private $Location;
 
     /**
      * NewCustomer constructor.
@@ -59,8 +64,9 @@ class NewCustomer extends _DataEntity
      * @param string $City
      * @param string $State
      * @param string $Zip
+     * @param null $Loaction
      */
-    public function __construct( string $Lastname, string $Email, string $Firstname = null, string $Address = null, string $City = null, string $State = null, string $Zip = null)
+    public function __construct( string $Lastname, string $Email, string $Firstname = null, string $Address = null, string $City = null, string $State = null, string $Zip = null, $Location = null)
     {
         $this->Firstname = $Firstname;
         $this->Lastname = $Lastname;
@@ -70,6 +76,7 @@ class NewCustomer extends _DataEntity
         $this->Zip = $Zip;
         $this->Email = $Email;
         $this->Password = PasswordUtils::generateHash(self::TempPassword);
+        $this->Location = $Location;
         parent::__construct();
     }
 
@@ -217,5 +224,20 @@ class NewCustomer extends _DataEntity
         $this->IsValid = $IsValid;
     }
 
+    /**
+     * @return int
+     */
+    public function getLocation(): int
+    {
+        return $this->Location;
+    }
+
+    /**
+     * @param int $Location
+     */
+    public function setLocation(int $Location): void
+    {
+        $this->Location = $Location;
+    }
 
 }

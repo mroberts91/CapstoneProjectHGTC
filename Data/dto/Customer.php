@@ -56,6 +56,15 @@ class Customer extends _DataEntity
     private $Password;
 
     /**
+     * @var
+     */
+    private $id_Location;
+    /**
+     * @var
+     */
+    private $LocationName;
+
+    /**
      * Customer constructor.
      */
     public function __construct()
@@ -71,6 +80,8 @@ class Customer extends _DataEntity
         $this->Zip = null;
         $this->Email = null;
         $this->Password = null;
+        $this->id_Location = null;
+        $this->LocationName = null;
         parent::__construct();
     }
 
@@ -92,6 +103,9 @@ class Customer extends _DataEntity
             $this->Zip = $array['Zip'];
             $this->Email = $array['Email'];
             $this->Password = $array['Password'];
+            $this->id_Location = $array['id_Location'];
+            $this->LocationName = $array['LocationName'];
+
             return true;
         } else {
             $this->IsValid = false;
@@ -129,7 +143,7 @@ class Customer extends _DataEntity
      * @param $Email
      * @param $Password
      */
-    public function buildFromParameters($id_Customer, $id_Department, $DepartmentName, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email, $Password){
+    public function buildFromParameters($id_Customer, $id_Department, $DepartmentName, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email, $Password, $id_Location, $LocationName){
         $this->id_Customer = $id_Customer;
         $this->id_Department = $id_Department;
         $this->DepartmentName = $DepartmentName;
@@ -141,6 +155,9 @@ class Customer extends _DataEntity
         $this->Zip = $Zip;
         $this->Email = $Email;
         $this->Password = $Password;
+        $this->id_Location = $id_Location;
+        $this->LocationName = $LocationName;
+
     }
 
     /**
@@ -252,7 +269,9 @@ class Customer extends _DataEntity
             $this->State,
             $this->Zip,
             $this->Email,
-            $this->Password
+            $this->Password,
+            $this->id_Location,
+            $this->LocationName
         );
     }
 
@@ -343,6 +362,39 @@ class Customer extends _DataEntity
     {
         $this->Password = $Password;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdLocation()
+    {
+        return $this->id_Location;
+    }
+
+    /**
+     * @param mixed $id_Location
+     */
+    public function setIdLocation($id_Location): void
+    {
+        $this->id_Location = $id_Location;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocationName()
+    {
+        return $this->LocationName;
+    }
+
+    /**
+     * @param mixed $LocationName
+     */
+    public function setLocationName($LocationName): void
+    {
+        $this->LocationName = $LocationName;
+    }
+
 
 
 

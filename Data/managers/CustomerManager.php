@@ -83,10 +83,11 @@ class CustomerManager extends _DataManager
                 $customer->getState(),
                 $customer->getZip(),
                 $customer->getEmail(),
-                $customer->getPassword()
+                $customer->getPassword(),
+                $customer->getLocation()
             );
             $this->Connection->SQLCallProcedure(
-                "CALL sp_cust_CreateNewCustomer(?,?,?,?,?,?,?,?)", $cust
+                "CALL sp_cust_CreateNewCustomer(?,?,?,?,?,?,?,?,?)", $cust
             );
             return true;
         } catch (Exception $e){

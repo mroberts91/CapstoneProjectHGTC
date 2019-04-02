@@ -9,7 +9,7 @@ require_once __DIR__ . "/../Data/dto/EmployeeLogin.php";
 require_once __DIR__ . "/../Data/dto/Employee.php";
 require_once __DIR__ . "/../Data/db/Connection.php";
 // This will eventually need to be replaced with actual login functionality.
-$_SESSION['user_id'] = "admin";
+
 $loginFailure = false;
 $loginSuccess = false;
 if($_SERVER["REQUEST_METHOD"] == "POST"){

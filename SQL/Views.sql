@@ -1,22 +1,26 @@
-CREATE VIEW vw_cust_CustomerFull 
-AS 
-SELECT 
-c.id_Customer 
+
+CREATE VIEW vw_cust_CustomerFull
+AS
+SELECT
+c.id_Customer
 ,c.id_Department
 ,d.Name
-,cd.Firstname 
-,cd.Lastname 
-,cd.Address 
-,cd.City 
-,cd.State 
-,cd.Zip 
+,cd.Firstname
+,cd.Lastname
+,cd.Address
+,cd.City
+,cd.State
+,cd.Zip
 ,cd.Email
-FROM cust_Customer c 
-JOIN cust_CustomerDetail cd 
+,c.id_Location
+,l.Name AS 'LocationName'
+FROM cust_Customer c
+JOIN cust_CustomerDetail cd
 	ON cd.id_Customer = c.id_Customer
 JOIN lu_Department d
 	ON d.id_Department = c.id_Department
-	
+JOIN lu_Location l
+  ON l.id_Location = c.id_Location
 
 CREATE VIEW vw_cust_Login
 AS

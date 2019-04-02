@@ -1,0 +1,22 @@
+.container{
+    margin-top: 1em;
+}
+#contactForm{
+    padding-top: .8em;
+}
+.btn-primary{
+    background-color: #003C66;
+    color: #ffffff;
+    font-size: 105%;
+}
+
+.form-check{
+    margin-top: .5em;
+}
+
+#login-name{
+    color: #ffffff;
+    font-size: 110%;
+    font-weight: bold;
+    margin-right: 10px;
+}

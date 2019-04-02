@@ -1,6 +1,7 @@
 <?php
 namespace Employee;
 use Core\_DataEntity;
+use Core\Department;
 require_once __DIR__.'/_DataEntity.php';
 
 /**
@@ -13,7 +14,15 @@ class Employee extends _DataEntity
     /**
      * @var int Employee ID
      */
-    private $id_Emp;
+    private $id_Employee;
+    /**
+     * @var int Department code / Permisson level
+     */
+    private $id_Department;
+    /**
+     * @var string Department Name
+     */
+    private $DepartmentName;
     /**
      * @var string Employee Firstname
      */
@@ -23,21 +32,162 @@ class Employee extends _DataEntity
      */
     private $Lastname;
     /**
-     * @var int Department code / Permisson level
+     * @var string Employee Address
      */
-    private $Department;
+    private $Address;
+    /**
+     * @var string Employee City
+     */
+    private $City;
+    /**
+     * @var string Employee State
+     */
+    private $State;
+    /**
+     * @var string Employee Zip Code
+     */
+    private $Zip;
+    /**
+     * @var string Employee Company Email
+     */
+    private $Email;
 
     /**
      * Employee constructor.
-     *
      */
     public function __construct()
     {
-        $this->id_Emp = null;
+        $this->id_Employee = null;
+        $this->id_Department = null;
+        $this->DepartmentName = null;
         $this->Firstname = null;
         $this->Lastname = null;
-        $this->Department = null;
+        $this->Address = null;
+        $this->City = null;
+        $this->State = null;
+        $this->Zip = null;
+        $this->Email = null;
         parent::__construct();
+    }
+
+    public function buildFromArray($array){
+        if (is_array($array)){
+            $this->id_Employee = $array['id_Employee'];
+            $this->id_Department =$array['id_Department'];
+            $this->DepartmentName = $array['Name'];
+            $this->Firstname = $array['Firstname'];
+            $this->Lastname = $array['Lastname'];
+            $this->Address = $array['Address'];
+            $this->City = $array['City'];
+            $this->State = $array['State'];
+            $this->Zip = $array['Zip'];
+            $this->Email = $array['Email'];
+            return true;
+        }else{
+            $this->IsValid = false;
+            return false;
+        }
+    }
+
+    public function buildFromParameters($id_Employee, $id_Department, $DepartmentNam, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email){
+        $this->id_Employee = $id_Employee;
+        $this->id_Department = $id_Department;
+        $this->DepartmentName = $DepartmentNam;
+        $this->Firstname = $Firstname;
+        $this->Lastname = $Lastname;
+        $this->Address = $Address;
+        $this->City = $City;
+        $this->State = $State;
+        $this->Zip = $Zip;
+        $this->Email = $Email;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdEmployee()
+    {
+        return $this->id_Employee;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdDepartment(): int
+    {
+        return $this->id_Department;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDepartmentName(): string
+    {
+        return $this->DepartmentName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->Firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->Lastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->Address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->City;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): string
+    {
+        return $this->State;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZip(): string
+    {
+        return $this->Zip;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->Email;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        return $this->IsValid;
     }
 
 

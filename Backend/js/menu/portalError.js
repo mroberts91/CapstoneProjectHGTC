@@ -1,0 +1,3 @@
+$(function () {
+    $('#portalError').modal('show');
+});

@@ -6,19 +6,19 @@ class ConnectionData
     /**
      * @var string Database url
      */
-    private static $uri = "http://mrober23.istwebclass.org:3306";
+    private static $uri = "http://groupc19.istwebclass.org:3306";
     /**
      * @var string Database name
      */
-    private static $dbname = "mrober23_michaels";
+    private static $dbname = "groupc19_jae";
     /**
      * @var string Datbase User
      */
-    public static $username = "mrober23_michael";
+    public static $username = "groupc19_dev";
     /**
      * @var string Database password
      */
-    public static $password = "password";
+    public static $password = "Groupc@19";
     /**
      * @var array PDO options
      */

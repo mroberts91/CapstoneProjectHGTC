@@ -41,7 +41,7 @@
         Customer Management
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Add Customer</a>
+        <a class="dropdown-item" href="create_customer.php">Add Customer</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Manage Customers</a>
     </div>

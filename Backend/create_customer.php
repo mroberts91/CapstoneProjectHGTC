@@ -2,6 +2,7 @@
 
 use Connection\Connection;
 use Core\GeoManager;
+use Core\Location;
 use Customer\CustomerManager;
 use Customer\NewCustomer;
 
@@ -12,6 +13,7 @@ require_once __DIR__."/../Data/managers/GeoManager.php";
 require_once __DIR__."/../Data/managers/CustomerManager.php";
 require_once __DIR__."/../Data/dto/NewCustomer.php";
 require_once __DIR__."/includes/header.php";
+require_once __DIR__."/../Data/enum/Location.php";
 
 $errormsg = '';
 $postSuccess = false;
@@ -28,19 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if (!isset($_POST['lastname'])){$errormsg .= '<p>Last Name is Required</p>'; }
     if (!isset($_POST['email'])){$errormsg .= '<p>Email is Required</p>'; }
-    $lname = trim($_POST['lastname']);
-    $email = trim(strtolower($_POST['email']));
-    $fname = isset($_POST['firstname'])? $_POST['firstname'] : null;
-    $addr = isset($_POST['address'])? $_POST['address'] : null;
-    $city = isset($_POST['city'])? $_POST['city'] : null;
-    $state = isset($_POST['state'])? $_POST['state'] : null;
-    $zip = isset($_POST['zip'])? $_POST['zip'] : null;
 
     if ($errormsg == ''){
         try {
+            $lname = trim($_POST['lastname']);
+            $email = trim(strtolower($_POST['email']));
+            $fname = isset($_POST['firstname'])? $_POST['firstname'] : null;
+            $addr = isset($_POST['address'])? $_POST['address'] : null;
+            $city = isset($_POST['city'])? $_POST['city'] : null;
+            $state = isset($_POST['state'])? $_POST['state'] : null;
+            $zip = isset($_POST['zip'])? $_POST['zip'] : null;
+            $location = isset($_POST['location'])? $_POST['location'] : null;
+
             $db = new Connection();
             $cm = new CustomerManager($db);
-            $newCust = new NewCustomer($lname, $email, $fname, $addr, $city, $state, $zip);
+            $newCust = new NewCustomer($lname, $email, $fname, $addr, $city, $state, $zip, $location);
             if ($cm->createNewCustomer($newCust)) {
                 $postSuccess = true;
             }else{
@@ -89,6 +93,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 </select>
                 <label for="zip">Zip Code</label>
                 <input class="form-control" id="zip" name="zip" type="number">
+                <label for="location">Prefer Location</label>
+               <select class="form-control" id="location" name="location">
+                   <option value="<?php echo (int)Location::$NMB?>">North Myrtle Beach</option>
+                   <option value="<?php echo (int)Location::$MYRTLE?>">Myrtle Beach</option>
+                   <option value="<?php echo (int)Location::$CONWAY?>">Conway</option>
+                   <option value="<?php echo (int)Location::$SURFSIDE?>">Surfside</option>
+                   <option value="<?php echo (int)Location::$MI?>">Murrells Inlet</option>
+               </select>
+
+
                 <br>
                 <input class="btn btn-primary" type="submit" name="newCustSubmit">
             </form>

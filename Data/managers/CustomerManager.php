@@ -70,11 +70,12 @@ class CustomerManager extends _DataManager
 
     /**
      * @param NewCustomer $customer - Customer DTO Object
+     * @return bool Returns true if a new customer was created.
      * @throws Exception - Throws an exception if call to stored procedure failed.
      */
     public function createNewCustomer($customer){
         try {
-            $array = array(
+            $cust = array(
                 $customer->getFirstname(),
                 $customer->getLastname(),
                 $customer->getAddress(),
@@ -85,8 +86,9 @@ class CustomerManager extends _DataManager
                 $customer->getPassword()
             );
             $this->Connection->SQLCallProcedure(
-                "CALL sp_cust_CreateNewCustomer(?,?,?,?,?,?,?,?)", $array
+                "CALL sp_cust_CreateNewCustomer(?,?,?,?,?,?,?,?)", $cust
             );
+            return true;
         } catch (Exception $e){
             throw new Exception($e->getMessage());
         }

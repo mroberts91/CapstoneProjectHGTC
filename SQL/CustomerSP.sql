@@ -1,6 +1,6 @@
 DELIMITER $$
 CREATE PROCEDURE `sp_cust_CreateNewCustomer`(
-    IN pFirstname VARCHAR(50),
+   IN pFirstname VARCHAR(50),
    IN pLastname VARCHAR(50),
    IN pAddress VARCHAR(100),
    IN pCity VARCHAR(50),

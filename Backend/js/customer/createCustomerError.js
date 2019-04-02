@@ -1,0 +1,3 @@
+$(function () {
+    $('#newCustomerSuccess').modal('show');
+});

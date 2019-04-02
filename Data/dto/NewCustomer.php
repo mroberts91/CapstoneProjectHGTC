@@ -52,13 +52,13 @@ class NewCustomer extends _DataEntity
 
     /**
      * NewCustomer constructor.
-     * @param string $Firstname
      * @param string $Lastname
+     * @param string $Email
+     * @param string $Firstname
      * @param string $Address
      * @param string $City
      * @param string $State
      * @param string $Zip
-     * @param string $Email
      */
     public function __construct( string $Lastname, string $Email, string $Firstname = null, string $Address = null, string $City = null, string $State = null, string $Zip = null)
     {
@@ -70,6 +70,7 @@ class NewCustomer extends _DataEntity
         $this->Zip = $Zip;
         $this->Email = $Email;
         $this->Password = PasswordUtils::generateHash(self::TempPassword);
+        parent::__construct();
     }
 
     /**

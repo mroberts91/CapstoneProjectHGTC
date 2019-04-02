@@ -1,9 +1,7 @@
 <?php
 
 use Connection\Connection;
-
 use Core\GeoManager;
-
 use Customer\CustomerManager;
 use Customer\NewCustomer;
 
@@ -11,13 +9,13 @@ use Customer\NewCustomer;
 require_once __DIR__."/includes/header.php";
 require_once __DIR__."/../Data/dto/State.php";
 require_once __DIR__."/../Data/managers/GeoManager.php";
-require_once __DIR__."/../Data/enum/Department.php";
-require_once __DIR__."/../Data/managers/EmployeeManager.php";
-require_once __DIR__."/../Data/dto/NewEmployee.php";
+require_once __DIR__."/../Data/managers/CustomerManager.php";
+require_once __DIR__."/../Data/dto/NewCustomer.php";
 require_once __DIR__."/includes/header.php";
 
-$errormsg ='';
+$errormsg = '';
 $postSuccess = false;
+$postError = false;
 
 try{
     $db = new Connection();
@@ -26,14 +24,12 @@ try{
 } catch (Exception $e){
     $errormsg = $e->getMessage();
 }
-if ($_SERVER['Request_Method'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    if (!isset($_POST['lastname'])){$errormsg = '<p>Last Name is Required</p>'; }
-    if (!isset($_POST['dept'])){$errormsg = '<p>Department is Required</p>'; }
-    if (!isset($_POST['email'])){$errormsg = '<p>Email is Required</p>'; }
+    if (!isset($_POST['lastname'])){$errormsg .= '<p>Last Name is Required</p>'; }
+    if (!isset($_POST['email'])){$errormsg .= '<p>Email is Required</p>'; }
     $lname = trim($_POST['lastname']);
-    $dept = $_POST['dept'];
-    $email = $_POST['email'];
+    $email = trim(strtolower($_POST['email']));
     $fname = isset($_POST['firstname'])? $_POST['firstname'] : null;
     $addr = isset($_POST['address'])? $_POST['address'] : null;
     $city = isset($_POST['city'])? $_POST['city'] : null;
@@ -44,13 +40,20 @@ if ($_SERVER['Request_Method'] == 'POST'){
         try {
             $db = new Connection();
             $cm = new CustomerManager($db);
-            $newCust = new NewCustomer($fname, $lname, $addr, $city, $state, $zip, $email);
+            $newCust = new NewCustomer($lname, $email, $fname, $addr, $city, $state, $zip);
             if ($cm->createNewCustomer($newCust)) {
                 $postSuccess = true;
+            }else{
+                $postError = false;
             }
         }catch (Exception $e){
+            $errormsg .= "<p>".$e->getMessage()."</p>";
+            $postError = true;
         }
+    }else{
+        $postError = true;
     }
+
 }
 ?>
 <div class="row">
@@ -87,13 +90,13 @@ if ($_SERVER['Request_Method'] == 'POST'){
                 <label for="zip">Zip Code</label>
                 <input class="form-control" id="zip" name="zip" type="number">
                 <br>
-                <input class="btn btn-primary" type="submit" name="newEmpSubmit">
+                <input class="btn btn-primary" type="submit" name="newCustSubmit">
             </form>
         </div>
     </div>
     <div class="col-md-4"></div>
 </div>
-<div class="modal fade" id="newEmpSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="newCustomerSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,7 +105,7 @@ if ($_SERVER['Request_Method'] == 'POST'){
                 </button>
             </div>
             <div class="modal-body">
-                <p>New Employee was created successfully!</p>
+                <p>New Customer was created successfully!</p>
             </div>
             <div class="modal-footer">
                 <a href="index.php"><button type="button" class="btn btn-secondary">Close</button></a>
@@ -110,6 +113,28 @@ if ($_SERVER['Request_Method'] == 'POST'){
         </div>
     </div>
 </div>
+<div class="modal fade" id="newCustomerError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+            </div>
+            <div class="modal-body"><?php echo $errormsg ?>
+            </div>
+            <div class="modal-footer">
+                <a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <?php
 require_once __DIR__."/includes/footer.php";
+if ($postError){
+    echo "<script src='js/customer/createCustomerError.js'></script>";
+}
+if ($postSuccess){
+    echo "<script src='js/customer/createCustomerSuccess.js'></script>";
+}
 ?>

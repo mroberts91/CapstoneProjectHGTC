@@ -21,16 +21,16 @@ require_once __DIR__."/../../Data/common/ConnectionDataFactory.php";
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="navbar-logo navbar-brand" href="index.php">Logo Here</div>
+    <a href="index.php"><div class="navbar-logo navbar-brand">Logo Here</div></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" id="homeLink" href="index.php">Home</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" id="homeLink" href="index.php">Home</a>-->
+<!--            </li>-->
             <?php require_once __DIR__ ."/admin_menu.php";?>
         </ul>
         <form class="form-inline my-2 my-lg-0">

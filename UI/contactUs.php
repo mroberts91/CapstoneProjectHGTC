@@ -7,20 +7,23 @@ require_once  'header.php';
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
 <div class="bg"></div>
 <br>
+<h1 class="title text-center">Contact Us Today</h1>
+<br><br>
 <div class="container">
     <div class="row">
-        <div class="col-sm">
-            <h2>CONTACT US!</h2>
+        <div class="col-lg-5">
+            <h2>Contact Information</h2>
             <p>Phone: (843)283-2617</p>
             <p>JaeTsunamis@icimb.com</p>
             <br>
             <br>
-            <h2>ADDRESS</h2>
+            <h2>Address</h2>
             <p>920 Crabtree Lane</p>
             <p>Myrtle Beach, SC 29577</p>
         </div>
-        <div class="col-sm">
-            <h2>LOCATION</h2>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-5">
+            <h2>Location</h2>
             <div id="map"></div>
         </div>
     </div>

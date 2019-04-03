@@ -21,7 +21,7 @@ require_once __DIR__."/../Data/common/ConnectionDataFactory.php";
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
-    <a href="frontendIndex.php"><img id="logo" src="images/logo.png"></a>
+    <a href="frontendIndex.php"><img id="logo" src="images/white.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

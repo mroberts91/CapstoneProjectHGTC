@@ -11,8 +11,12 @@ nav{
     float: right;
 }
 .btn-danger{
-    background-color: #3a4660 !important;
-    border-color: #3a4660 !important;
+    background-color: #c9af98 !important;
+    border-color: #c9af98 !important;
+    color: #FFF;
     /*height: 105%;*/
     /*width: 120%;*/
+}
+.btn-danger:hover{
+    background-color: #DAA520 !important;
 }

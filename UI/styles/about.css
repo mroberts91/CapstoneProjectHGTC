@@ -1,0 +1,31 @@
+body{
+    background-color: #c9af98;
+}
+#photowrapper{
+    width: 95%;
+    margin: 0 auto;
+}
+.col{
+    opacity: .8;
+    height: 150px;
+}
+#pic1{
+    background: url("../images/outdoor-patio-masseria-noma_credit-masseria.jpg") no-repeat center;
+    background-size: 110%;
+}
+#pic2{
+    background: url("../images/restaurant-party-and-event-ideas.jpg") no-repeat center;
+    background-size: 110%;
+}
+#pic3{
+    background: url("../images/Planning-Your-Restaurant-Floor-Plan-Step-by-Step-Instructions.png") no-repeat center;
+    background-size: 110%;
+}
+#pic4{
+    background: url("../images/shutterstock_615600482.jpg") no-repeat center;
+    background-size: 110%;
+}
+#pic5{
+    background: url("../images/40630331a8354f848631f9f7ad769e32.jpg") no-repeat center;
+    background-size: 110%;
+}

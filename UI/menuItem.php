@@ -3,48 +3,37 @@
 require_once  'header.php';
 //DATABASE CONNECTION
 ?>
-<style>
-    .bg{
-        background-color: firebrick;
-    }
-    nav{
-        margin-top: 10px;
-        word-spacing: 250px;
-        font-size: 50px;
-        background-color: black;
-
-        }
-    ui{
-        background-color: black;
-        }
-    nav a:visited { color: #FFFFFF; }
-    img{
-        padding-bottom: 5px;
-    }
-    
-    .menu{
-        outline:  5px solid black;;
-    }
-</style>
-
-<body class="bg">
-<div class="container">
+<link rel="stylesheet" href="styles/menuItem.css">
+<br>
+<div class="wrapper">
+    <h1 class="title text-center">Our Menu</h1>
+    <br>
     <div class="row">
-        <div class="col-sm">
-            <img src="images/slider_4.jpg" alt="Slider" style="width:350px; height:200px">
-            <img src="images/image.jpg" alt="Burger" style="width:350px; height:200px">
-            <img src="images/vegan-matcha-mousse-cake-2.jpg" alt="Vegan matcha mousse cake" style="width:350px; height:200px">
-
-        </div>
-        <div class="col-sm">
-            <div class="menu">
-          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="col-md-2 d-none d-lg-block">
+            <div class="row">
+                <div class="col" id="pic4"></div>
+            </div>
+            <div class="row">
+                <div class="col" id="pic5"></div>
+            </div>
+            <div class="row">
+                <div class="col" id="pic6"></div>
             </div>
         </div>
-        <div class="col-sm">
-            <img src="images/images.jpg" alt="Plate" style="width:350px; height:200px">
-            <img src="images/image2.jpg" alt="Dessert" style="width:350px; height:200px">
-            <img src="images/hero_2704_Garlic_Herb_Steak_with_Summer_Ratatouille___HERO.jpg" alt="Garlic dish" style="width:350px; height:200px">
+        <div class="col-md-12 col-lg-8" id="menu-container">
+            <div class="menu">
+            </div>
+        </div>
+        <div class="col-md-2 d-none d-lg-block">
+            <div class="row">
+                <div class="col" id="pic1"></div>
+            </div>
+            <div class="row">
+                <div class="col" id="pic2"></div>
+            </div>
+            <div class="row">
+                <div class="col" id="pic3"></div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,15 @@
+
+.bg{
+    content: "";
+    background: url("../images/home.jpg");
+    opacity: 0.4;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+#home-logo{
+    background: url("../images/logo.png") no-repeat center;
+    height: 35em;
+    background-size: 100%;
+}

@@ -1,0 +1,3 @@
+$(function () {
+    $('#newEmpError').modal('show');
+});

@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $postSuccess = true;
             }
         } catch (Exception $e) {
+            $errormsg .= "<p>".$e->getMessage()."</p>";
+            $postError = true;
         }
     }
 }
@@ -116,8 +118,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
     </div>
 </div>
+<div class="modal fade" id="newEmpError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+            </div>
+            <div class="modal-body"><?php echo $errormsg ?>
+            </div>
+            <div class="modal-footer">
+                <a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <?php
 require_once __DIR__."/includes/footer.php";
+if ($postError){
+    echo '<script src="js/employee/empCreateError.js"></script>';
+}
 if ($postSuccess){
     echo '<script src="js/employee/empCreateSuccess.js"></script>';
 }

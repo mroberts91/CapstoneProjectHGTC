@@ -1,3 +1,3 @@
 $(function () {
-    $('#newCustomerSuccess').modal('show');
+    $('#newCustomerError').modal('show');
 });

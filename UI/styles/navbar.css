@@ -1,0 +1,42 @@
+.navbar{
+    font-size: 115%;
+    border-bottom: 2px solid #3a4660;
+}
+.nav-item{
+    font-size: 150% !important;
+    margin: 0 1.2em;
+}
+.nav-link{
+    color: #3a4660;
+}
+/*.nav-item a{*/
+    /*color: #FFFFFF !important;*/
+/*}*/
+/*.nav-item a:link {*/
+    /*color: #FFFFFF;*/
+/*}*/
+/*.nav-item a:visited {*/
+    /*color: #FFFFFF;*/
+/*}*/
+/*.nav-item a:hover {*/
+    /*color: firebrick;*/
+/*}*/
+.form-inline{
+    margin-right: 1.5em;
+}
+.form-inline a{
+    font-size: 120%;
+}
+.form-inline span{
+    float: top;
+    margin-right: 1.5em;
+}
+
+#logo{
+    height: 5em;
+    width: 14em;
+}
+/*.navbar-brand{*/
+    /*height: 2em;*/
+    /*background: url("../images/logo.png");*/
+/*}*/

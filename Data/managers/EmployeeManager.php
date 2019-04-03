@@ -46,21 +46,25 @@ class EmployeeManager extends _DataManager
      */
     public function createNewEmployee($employee){
         try {
-            $array = array(
-                $employee->getIdDepartment(),
-                $employee->getFirstname(),
-                $employee->getLastname(),
-                $employee->getAddress(),
-                $employee->getCity(),
-                $employee->getState(),
-                $employee->getZip(),
-                $employee->getEmail(),
-                $employee->getPassword()
-            );
-            $this->Connection->SQLCallProcedure(
-                "CALL sp_emp_CreateNewEmployee(?,?,?,?,?,?,?,?,?)", $array
-            );
-            return true;
+            if ($this->checkIfEmailIsUnique($employee->getEmail())) {
+                $array = array(
+                    $employee->getIdDepartment(),
+                    $employee->getFirstname(),
+                    $employee->getLastname(),
+                    $employee->getAddress(),
+                    $employee->getCity(),
+                    $employee->getState(),
+                    $employee->getZip(),
+                    $employee->getEmail(),
+                    $employee->getPassword()
+                );
+                $this->Connection->SQLCallProcedure(
+                    "CALL sp_emp_CreateNewEmployee(?,?,?,?,?,?,?,?,?)", $array
+                );
+                return true;
+            } else{
+                throw new Exception("An account with that email already exits. <br> Please use a different email.");
+            }
         } catch (Exception $e){
             throw new Exception($e->getMessage());
         }
@@ -82,6 +86,18 @@ class EmployeeManager extends _DataManager
             return false;
         }
 
+    }
+
+    /**
+     * @param $email
+     * @return bool - Returns a bool whether a record with that email already exists
+     * @throws Exception
+     */
+    public function checkIfEmailIsUnique($email){
+        $result = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_emp_Login WHERE Email = ?",$email
+        );
+        return (count($result) > 0 )? false : true;
     }
 
     /**

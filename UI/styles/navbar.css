@@ -1,13 +1,20 @@
 .navbar{
     font-size: 115%;
-    border-bottom: 2px solid #3a4660;
+    background-color: #3a4660;
+}
+.navbar-nav{
+    margin: 0 2em;
 }
 .nav-item{
     font-size: 150% !important;
     margin: 0 1.2em;
 }
 .nav-link{
-    color: #3a4660;
+    color: #c9af98 !important;
+    
+}
+.nav-link:hover{
+    color: #DAA520 !important;
 }
 /*.nav-item a{*/
     /*color: #FFFFFF !important;*/
@@ -34,7 +41,7 @@
 
 #logo{
     height: 5em;
-    width: 14em;
+    width: 8em;
 }
 /*.navbar-brand{*/
     /*height: 2em;*/

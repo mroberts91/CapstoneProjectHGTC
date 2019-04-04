@@ -29,9 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (!isset($_POST['lastname'])){$errormsg = '<p>Last Name is Required</p>'; }
     if (!isset($_POST['dept'])){$errormsg = '<p>Department is Required</p>'; }
     if (!isset($_POST['email'])){$errormsg = '<p>Email is Required</p>'; }
+    if(!isset($_POST['password'])){$errormsg.= '<p>Password is Required</p>';}
     $lname = trim($_POST['lastname']);
     $dept = $_POST['dept'];
     $email = strtolower($_POST['email']);
+    $password = trim($_POST['password']);
     $fname = isset($_POST['firstname'])? $_POST['firstname'] : null;
     $addr = isset($_POST['address'])? $_POST['address'] : null;
     $city = isset($_POST['city'])? $_POST['city'] : null;
@@ -42,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         try {
             $db = new Connection();
             $em = new EmployeeManager($db);
-            $newEmp = new NewEmployee($dept, $lname, $email, $fname, $addr, $city, $state, $zip);
+            $newEmp = new NewEmployee($dept, $lname, $password, $email, $fname, $addr, $city, $state, $zip);
             if ($em->createNewEmployee($newEmp)){
                 $postSuccess = true;
             }
@@ -77,6 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <input class="form-control" id="firstname" name="firstname" type="text">
                 <label for="lastname">Last Name</label>
                 <input class="form-control" id="lastname" name="lastname" type="text">
+                <label for="password">Password</label>
+                <input class="form-control" id="password" name="password" type="password">
+                <input type="checkbox" onclick="myFunction()">Show Password
+                <br>
                 <label for="email">Email</label>
                 <input class="form-control" id="email" name="email" type="text">
                 <label for="address">Address</label>
@@ -134,6 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
     </div>
 </div>
+<script> function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }</script>
 <?php
 require_once __DIR__."/includes/footer.php";
 if ($postError){

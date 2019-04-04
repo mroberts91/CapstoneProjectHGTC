@@ -13,11 +13,11 @@ require_once  'header.php';
     <div class="row">
         <div class="col-lg-5">
             <h2>Contact Information</h2>
-            <p>Phone: (843)283-2617</p>
-            <p>JaeTsunamis@icimb.com</p>
+            <p><i class="fa fa-phone" aria-hidden="true"> </i> (843)283-2617</p>
+            <p><i class="fa fa-envelope" aria-hidden="true"> </i> JaeTsunamis@ICIMB.com</p>
             <br>
             <br>
-            <h2>Address</h2>
+            <h2><i class="fa fa-map-marker" aria-hidden="true"> </i> Address</h2>
             <p>920 Crabtree Lane</p>
             <p>Myrtle Beach, SC 29577</p>
         </div>

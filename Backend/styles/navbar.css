@@ -1,19 +1,20 @@
 .navbar{
-    background-color: #003C66;
+    background-color: #B12129;
 }
 
 .navbar-brand{
     font-size: 195%;
 }
+.navbar-nav{
+    margin: 0 2em;
+}
+#logo{
+    height: 5em;
+    width: 8em;
+}
 
-/*.navbar-logo{*/
-    /*margin-right: 1.5em;*/
-    /*height: 71px;*/
-    /*width: 127px;*/
-    /*background: url(../images/logo.png) center no-repeat;*/
-    /*background-size: 92%;*/
-/*}*/
 .nav-link{
+    color: #FFF !important;
     font-size: 115%;
     font-weight: bold;
 }

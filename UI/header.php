@@ -15,20 +15,22 @@ require_once __DIR__."/../Data/common/ConnectionDataFactory.php";
     <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,500i,700,800i" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/navbar.css">
     <script src="js/jquery.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light">
-    <a href="frontendIndex.php"><img id="logo" src="images/white.png"></a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a href="index.php"><img id="logo" src="images/white.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" id="homeLink" href="frontendIndex.php">Home</a>
+                <a class="nav-link" id="homeLink" href="index.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="aboutLink" href="about.php">About</a>

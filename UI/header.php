@@ -46,6 +46,15 @@ require_once __DIR__."/../Data/common/ConnectionDataFactory.php";
             <?php if (isset($_SESSION['customer_id'])){ echo "hidden"; } ?>>
             <button type="submit" class="btn btn-danger my-2 my-sm-0" id="login">Order Online</button>
         </form>
+        <form class="form-inline my-2 my-lg-0" id="login-button" action="create_online_order.php" method="get"
+            <?php if (!isset($_SESSION['customer_id'])){ echo "hidden"; } ?>>
+            <button type="submit" class="btn btn-danger my-2 my-sm-0" id="login">Place an Order</button>
+        </form>
+        <form class="form-inline my-2 my-lg-0" id="logout-button" action="customer_profile.php" method="get"
+            <?php if (!isset($_SESSION['customer_id'])){ echo "hidden"; } ?>>
+            <button type="submit" class="btn btn-danger my-2 my-sm-0" id="login">View Profile</button>
+        </form>
+        <br>
         <form class="form-inline my-2 my-lg-0" id="logout-button" action="logout.php" method="get"
             <?php if (!isset($_SESSION['customer_id'])){ echo "hidden"; } ?>>
             <button type="submit" class="btn btn-danger my-2 my-sm-0" id="login">Logout</button>

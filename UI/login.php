@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__."/header.php";
+$_SESSION['customer_id'] = 1;
 ?>
 <link rel="stylesheet" type="text/css" href="styles/login.css">
 <br>

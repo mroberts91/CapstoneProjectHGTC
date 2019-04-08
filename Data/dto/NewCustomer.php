@@ -64,7 +64,7 @@ class NewCustomer extends _DataEntity
      * @param string $City
      * @param string $State
      * @param string $Zip
-     * @param null $Loaction
+     * @param null $Location
      */
     public function __construct( string $Lastname, string $Email, string $Firstname = null, string $Address = null, string $City = null, string $State = null, string $Zip = null, $Location = null)
     {

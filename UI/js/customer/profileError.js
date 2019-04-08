@@ -1,0 +1,5 @@
+$(function () {
+
+    $('#profileError').modal('show');
+
+});

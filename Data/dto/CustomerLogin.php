@@ -80,9 +80,9 @@ class CustomerLogin extends _DataEntity
     }
 
     /**
-     * @return Customer
+     * @return string
      */
-    public function getEmail(): Customer
+    public function getEmail(): string
     {
         return $this->Email;
     }

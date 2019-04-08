@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $_SESSION['user_name'] = $fullEmp->getFirstname() . ' ' . $fullEmp->getLastname();
             $_SESSION['user_perm_level'] = $fullEmp->getIdDepartment();
             $_SESSION['user_department'] = $fullEmp->getDepartmentName();
-            $_SESSION['full_user'] = $fullEmp;
+            $_SESSION['full_emp'] = $fullEmp;
         } else{
             $errormsg .= "<p>Your username or password was incorrect.<br>Please try again.</p>";
             $loginFailure = true;

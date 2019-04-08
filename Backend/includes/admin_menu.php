@@ -1,3 +1,4 @@
+<?php $empID = $_SESSION['user_id']; ?>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="menuDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Menu
@@ -31,9 +32,11 @@
         Employee Management
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="create_employee.php"">Add Employee</a>
+        <a class="dropdown-item" href="create_employee.php">Add Employee</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Manage Employees</a>
+        <a class="dropdown-item" href="manage_employees.php">Manage Employees</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="employee_profile.php?id=<?php echo $empID?>">Your Profile</a>
     </div>
 </li>
 <li class="nav-item dropdown">
@@ -43,6 +46,6 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="create_customer.php">Add Customer</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Manage Customers</a>
+        <a class="dropdown-item" href="view_customers.php">View Customers</a>
     </div>
 </li>

@@ -64,3 +64,36 @@ JOIN emp_EmployeeDetail ed
   ON ed.id_Employee = e.id_Employee
 JOIN emp_EmployeeLogin el
 	ON el.id_Employee = e.id_Employee
+
+CREATE VIEW vw_emp_manage
+AS
+SELECT
+	e.id_Employee
+ 	,ed.Firstname
+ 	,ed.Lastname
+ 	,e.id_Department
+ 	,d.Name AS 'DeptName'
+ 	,ed.Email
+FROM emp_Employee e
+	JOIN emp_EmployeeDetail ed
+		ON ed.id_Employee = e.id_Employee
+ 	JOIN lu_Department d
+		ON d.id_Department = e.id_Department
+
+CREATE VIEW vw_cust_Manage
+AS
+SELECT
+	c.id_Customer
+		 ,c.id_Location
+		 ,l.Name AS 'PrefLocation'
+		 ,cd.Firstname
+		 ,cd.Lastname
+		 ,cd.Address
+		 ,cd.State
+		 ,cd.Zip
+		 ,cd.Email
+FROM cust_Customer c
+			 JOIN cust_CustomerDetail cd
+						ON cd.id_Customer = c.id_Customer
+			 JOIN lu_Location l
+						ON l.id_Location = c.id_Location

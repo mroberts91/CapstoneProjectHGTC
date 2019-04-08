@@ -15,7 +15,7 @@
 
 .nav-link{
     color: #FFF !important;
-    font-size: 120%;
+    font-size: 125%;
     margin-right: 1em;
 
 }
@@ -24,4 +24,10 @@
 }
 #logout-button{
     float: right;
+}
+#username{
+    color: #FFF;
+    font-size: 110%;
+    margin: 1em;
+    text-align: right;
 }

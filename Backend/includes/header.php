@@ -47,6 +47,11 @@ if (isset($_SESSION['user_perm_level']) && !empty($_SESSION['user_perm_level']))
         </ul>
         <form class="form-inline my-2 my-lg-0" id="logout-button" action="logout.php" method="get"
             <?php if (!isset($_SESSION['user_id'])){ echo "hidden"; } ?>>
+            <div id="username">
+                <span><?php echo $_SESSION['user_name']; ?></span>
+                <br>
+                <span>(<?php echo $_SESSION['user_department']; ?>)</span>
+            </div>
             <button type="submit" class="btn btn-danger my-2 my-sm-0" id="login">
                 <i class="fa fa-sign-out" aria-hidden="true"> </i> Logout</button>
         </form>

@@ -36,7 +36,7 @@
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="manage_employees.php">Manage Employees</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="employee_profile.php?id=<?php echo $empID?>">Your Profile</a>
+        <a class="dropdown-item" href="employee_profile.php?id=<?php echo $empID?>">View Your Profile</a>
     </div>
 </li>
 <li class="nav-item dropdown">

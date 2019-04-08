@@ -81,9 +81,10 @@ class Connection extends PDO
     /**
      * @param $statement
      * @param  array $values
+     * @return bool
      * @throws Exception
      */
-    public function SQLCallProcedure($statement, $values = null)
+    public function SQLCallProcedure($statement, $values = null) : bool
     {
         $result = array();
         $statement = trim($statement);
@@ -109,5 +110,42 @@ class Connection extends PDO
             $error = $this->statements[$statement]->errorInfo();
             throw new Exception($error[2], (int)$error[0]);
         }
+        return true;
+    }
+
+    /**
+     * Takes a sql statement and replacement values for question marks placeholders (if there are any) executes the query by a prepared statement and
+     * returns the result (if any) as an multidimentional array with the first key the index num in the row of results, the second the name of result column.
+     * @param $statement - The query statement
+     * @param $values - The replacement values as array for question marks placeholders if there are any. If there is only one then this can be a string
+     * @return bool
+     * @throws Exception
+     */
+    public function SQLNonQuery($statement, $values = null) : bool
+    {
+        $statement = trim($statement);
+        if (is_null($values)) {
+            $values = array();
+        } else if (!is_array($values)) {
+            $values = array($values);
+        }
+        if (substr_count($statement, "?") !== count($values)) {
+            throw new Exception(
+                "PREPARED STATEMENT - Bind Parameters, ? Count Mismatch : " . $statement
+                , 4561);
+        }
+        // Creating a prepared statment with passed in statement
+        if (!isset($this->statements[$statement])) {
+            $this->statements[$statement] = $this->prepare($statement);
+        }
+
+        // Execute the prepared statment, passed bound values if any, or else and empty array.
+        $this->statements[$statement]->execute($values);
+
+        if ($this->statements[$statement]->errorCode() != "00000") {
+            $error = $this->statements[$statement]->errorInfo();
+            throw new Exception($error[2], (int)$error[0]);
+        }
+        return true;
     }
 }

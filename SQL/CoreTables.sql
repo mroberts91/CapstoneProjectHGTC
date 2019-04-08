@@ -68,6 +68,7 @@ CREATE TABLE menu_MenuItem
   Name VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL,
   Price DECIMAL(8,2) NOT NULL,
   id_Category INT NOT NULL,
+  ShortName VARCHAR(50) NULL,
   PRIMARY KEY (id_MenuItem),
   INDEX (id_MenuItem),
   FOREIGN KEY (id_Category) REFERENCES lu_MenuCategory(id_Category)

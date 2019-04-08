@@ -8,7 +8,7 @@
 
 namespace Customer;
 use Core\_DataEntity;
-require_once __DIR__."/../managers/_DataManager.php";
+require_once __DIR__."/_DataEntity.php";
 
 /**
  * Class CustomerLogin
@@ -80,9 +80,9 @@ class CustomerLogin extends _DataEntity
     }
 
     /**
-     * @return Customer
+     * @return string
      */
-    public function getEmail(): Customer
+    public function getEmail(): string
     {
         return $this->Email;
     }

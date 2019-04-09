@@ -97,3 +97,34 @@ FROM cust_Customer c
 						ON cd.id_Customer = c.id_Customer
 			 JOIN lu_Location l
 						ON l.id_Location = c.id_Location
+
+
+CREATE VIEW vw_order_OpenOrders
+AS
+SELECT
+	o.`id_Order`
+		 ,o.`Created`
+		 ,o.`Subtotal`
+		 ,o.`GrandTotal`
+		 ,o.`id_Employee`
+		 ,ed.Firstname
+		 ,ed.Lastname
+		 ,(SELECT COUNT(id_Order) FROM order_OrderDetail WHERE order_OrderDetail.id_Order = o.id_Order) AS "Item Count"
+		 ,o.id_OrderStatus
+		 ,os.Name
+FROM order_Order o
+			 JOIN emp_EmployeeDetail ed
+						ON ed.id_Employee = o.id_Employee
+			 JOIN lu_OrderStatus os
+						ON os.id_OrderStatus = o.id_OrderStatus
+
+CREATE VIEW vw_order_DisplayOrder
+AS
+SELECT
+	 od.id_Order
+	,od.id_MenuItem
+	,od.ItemPrice
+ 	,mi.Name
+FROM order_OrderDetail od
+			 JOIN menu_MenuItem mi
+						ON mi.id_MenuItem = od.id_MenuItem

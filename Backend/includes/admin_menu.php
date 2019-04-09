@@ -22,7 +22,11 @@
         Orders
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Create Order</a>
+        <a class="dropdown-item" href="your_orders.php">Your Open Orders</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="create_new_order.php">Create New Order</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="all_open_orders.php">View All Open Orders</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Order Report</a>
     </div>

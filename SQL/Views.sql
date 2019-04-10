@@ -112,6 +112,7 @@ SELECT
 		 ,(SELECT COUNT(id_Order) FROM order_OrderDetail WHERE order_OrderDetail.id_Order = o.id_Order) AS "Item Count"
 		 ,o.id_OrderStatus
 		 ,os.Name
+		 ,o.TableNumber
 FROM order_Order o
 			 JOIN emp_EmployeeDetail ed
 						ON ed.id_Employee = o.id_Employee
@@ -124,6 +125,8 @@ SELECT
 	 od.id_Order
 	,od.id_MenuItem
 	,od.ItemPrice
+	,od.Notes
+ 	,od.IsCooked
  	,mi.Name
 FROM order_OrderDetail od
 			 JOIN menu_MenuItem mi

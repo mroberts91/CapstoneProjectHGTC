@@ -27,6 +27,31 @@ class OrderItem extends _DataEntity
     private $ItemPrice;
 
     /**
+     * @var string
+     */
+    private $Notes;
+
+    /**
+     * @var string
+     */
+    private $Name;
+
+    /**
+     * @var bool
+     */
+    private $IsCooked;
+
+    /**
+     * @var bool
+     */
+    private $IsNew;
+
+    /**
+     * @var bool
+     */
+    private $ToDelete;
+
+    /**
      * OrderItem constructor.
      */
     public function __construct()
@@ -35,6 +60,11 @@ class OrderItem extends _DataEntity
         $this->id_Order = null;
         $this->id_MenuItem = null;
         $this->ItemPrice = null;
+        $this->Notes = null;
+        $this->Name = null;
+        $this->IsCooked = null;
+        $this->IsNew = false;
+        $this->ToDelete = false;
     }
 
     /**
@@ -84,6 +114,91 @@ class OrderItem extends _DataEntity
     {
         $this->ItemPrice = $ItemPrice;
     }
+
+    /**
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->Notes;
+    }
+
+    /**
+     * @param string $Notes
+     */
+    public function setNotes($Notes)
+    {
+        $this->Notes = $Notes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->Name;
+    }
+
+    /**
+     * @param string $Name
+     */
+    public function setName(string $Name)
+    {
+        $this->Name = $Name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getisCooked()
+    {
+        return $this->IsCooked;
+    }
+
+    /**
+     * @param int $IsCooked
+     */
+    public function setIsCooked($IsCooked)
+    {
+        $this->IsCooked = ($IsCooked == 1)? true: false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew()
+    {
+        return $this->IsNew;
+    }
+
+    /**
+     * @param bool $IsNew
+     */
+    public function setIsNew($IsNew)
+    {
+        $this->IsNew = $IsNew;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isToDelete()
+    {
+        return $this->ToDelete;
+    }
+
+    /**
+     * @param bool $ToDelete
+     */
+    public function setToDelete($ToDelete)
+    {
+        $this->ToDelete = $ToDelete;
+    }
+
+
+
+
+
 
 
 

@@ -28,9 +28,15 @@ class OrderManager extends _DataManager
      * @throws \Exception
      */
     public function getAllOpenOrdersByEmp($userID){
+        $params = array(
+            $userID,
+            OrderStatus::$OPEN,
+            OrderStatus::$NEW,
+            OrderStatus::$FOODMADE
+        );
         $rtn = array();
         $result = $this->Connection->SQLRequest(
-            "SELECT * FROM vw_order_OpenOrders WHERE id_Employee = ?", $userID
+            "SELECT * FROM vw_order_OpenOrders WHERE id_Employee = ? AND id_OrderStatus IN(?, ?, ?)", $params
         );
         foreach ($result as $order){
             $o = new Order();
@@ -44,6 +50,7 @@ class OrderManager extends _DataManager
             $o->setOrderItemCount($order['Item Count']);
             $o->setIdOrderStatus($order['id_OrderStatus']);
             $o->setOrderStatus($order['Name']);
+            $o->setTableNumber($order['TableNumber']);
             array_push($rtn, $o);
         }
         return $rtn;
@@ -72,6 +79,7 @@ class OrderManager extends _DataManager
             $o->setOrderItemCount($order['Item Count']);
             $o->setIdOrderStatus($order['id_OrderStatus']);
             $o->setOrderStatus($order['Name']);
+            $o->setTableNumber($order['TableNumber']);
             array_push($rtn, $o);
         }
         return $rtn;
@@ -90,11 +98,15 @@ class OrderManager extends _DataManager
             $params = array(
                 $item->getIdOrder(),
                 $item->getIdMenuItem(),
-                $item->getItemPrice()
+                $item->getItemPrice(),
+                $item->getNotes()
             );
+//            if ($item->isToDelete()){
+//
+//            }
             try{
                 $this->Connection->SQLNonQuery(
-                    "INSERT INTO order_OrderDetail (id_Order, id_MenuItem, ItemPrice) VALUES (?, ?, ?)",
+                    "INSERT INTO order_OrderDetail (id_Order, id_MenuItem, ItemPrice, Notes) VALUES (?, ?, ?, ?)",
                     $params
                 );
 
@@ -112,12 +124,12 @@ class OrderManager extends _DataManager
      * @throws \Exception
      * @return int new order ID
      */
-    public function createNewOrder($creatorID){
-        $params = array($creatorID, 0.00, 0.00, 0.00, $creatorID);
+    public function createNewOrder($creatorID, $tableNum){
+        $params = array($creatorID, 0.00, 0.00, 0.00, $creatorID, $tableNum);
         $this->Connection->SQLNonQuery(
             "INSERT INTO order_Order 
-            (CreatedBy, Subtotal, CalculatedTax, GrandTotal, id_Employee)
-            VALUES (?,?,?,?,?)", $params
+            (CreatedBy, Subtotal, CalculatedTax, GrandTotal, id_Employee, TableNumber)
+            VALUES (?,?,?,?,?,?)", $params
         );
         $id = $this->Connection->SQLRequest(
             "SELECT id_Order FROM order_Order ORDER BY id_Order DESC LIMIT 1"
@@ -127,7 +139,7 @@ class OrderManager extends _DataManager
 
     /**
      * @param $id
-     * @return array|null
+     * @return OrderItem[]
      * @throws \Exception
      */
     public function getAllItemsByOrderIdForUI($id){
@@ -136,7 +148,35 @@ class OrderManager extends _DataManager
         );
         return $results;
     }
+    /**
+     * @param $id
+     * @return OrderItem[]
+     * @throws \Exception
+     */
+    public function getAllItemsByOrder($id){
+        $rtn = array();
+        $results = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_order_DisplayOrder WHERE id_Order = ?", $id
+        );
+        foreach ($results as $item) {
+            $i = new OrderItem();
+            $i->setIdOrder($item['id_Order']);
+            $i->setIdMenuItem($item['id_MenuItem']);
+            $i->setName($item['Name']);
+            $i->setNotes($item['Notes']);
+            $i->setIsCooked($item['IsCooked']);
+            array_push($rtn, $i);
+        }
+        return $rtn;
+    }
 
+
+
+    /**
+     * @param $Status
+     * @param $id
+     * @throws \Exception
+     */
     public function updateOrderStatus($Status, $id){
         $params = array($Status, $id);
         $this->Connection->SQLNonQuery("UPDATE order_Order SET id_OrderStatus = ? WHERE id_Order = ?", $params);
@@ -162,4 +202,37 @@ class OrderManager extends _DataManager
         $params = array($grandTotal, $id);
         $this->Connection->SQLNonQuery("UPDATE order_Order SET GrandTotal = ? WHERE id_Order = ?", $params);
     }
+
+    /**
+     * @param int $id orderID
+     * @throws \Exception
+     */
+    public function setCancelledStatus($id){
+        $params = array(
+            OrderStatus::$CANCELLED,
+            $id
+        );
+        $this->Connection->SQLNonQuery(
+            "UPDATE order_Order SET id_OrderStatus = ? WHERE id_Order = ?", $params);
+    }
+
+    /**
+     * @param $id
+     * @throws \Exception
+     */
+    public function updateInventoryForOrder($id){
+        $items = $this->getAllItemsByOrder($id);
+        $this->Connection->SQLNonQuery(
+            "UPDATE order_OrderDetail SET IsCooked = 1 WHERE id_Order=?",
+            $id
+        );
+        foreach ($items as $item){
+            $this->Connection->SQLNonQuery(
+                "UPDATE menu_Inventory SET Inventory = Inventory-1 WHERE id_MenuItem=?",
+                $item->getIdMenuItem()
+            );
+        }
+    }
+
+
 }

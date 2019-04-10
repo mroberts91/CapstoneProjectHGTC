@@ -15,4 +15,6 @@ class OrderStatus
     public static $OPEN = 200;
     public static $COMPLETED = 300;
     public static $CANCELLED = 400;
+    public static $FOODMADE = 500;
+
 }

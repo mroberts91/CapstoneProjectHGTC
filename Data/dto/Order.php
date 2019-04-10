@@ -62,6 +62,11 @@ class Order extends _DataEntity
     private $OrderStatus;
 
     /**
+     * @var int
+     */
+    private $TableNumber;
+
+    /**
      * Order constructor.
      */
     public function __construct()
@@ -78,6 +83,7 @@ class Order extends _DataEntity
         $this->OrderItems = null;
         $this->id_OrderStatus = null;
         $this->OrderStatus = null;
+        $this->TableNumber = null;
     }
 
     /**
@@ -255,6 +261,23 @@ class Order extends _DataEntity
     {
         $this->OrderStatus = $OrderStatus;
     }
+
+    /**
+     * @return int
+     */
+    public function getTableNumber()
+    {
+        return $this->TableNumber;
+    }
+
+    /**
+     * @param int $TableNumber
+     */
+    public function setTableNumber($TableNumber)
+    {
+        $this->TableNumber = $TableNumber;
+    }
+
 
 
 }

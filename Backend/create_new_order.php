@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $userName = $_SESSION['user_name'];
         $db = new Connection();
         $orderMan = new OrderManager($db);
-        $newOrderId = $orderMan->createNewOrder((int)$userID);
+        $tableNum = (isset($_POST['tableNumber'])) ? (int)$_POST['tableNumber'] : null;
+        $newOrderId = $orderMan->createNewOrder((int)$userID, $tableNum);
         echo "<script>window.location = 'edit_order.php?id=".$newOrderId."'</script>";
     } catch (Exception $e) {
         die($e);
@@ -31,9 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <br>
 <div class="row">
     <div class="col-md-1 col-xl-4"></div>
-    <div class="col-md-10 col-xl-4" id="big-red-button">
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-            <button class="btn btn-success">
+    <div class="col-sm-10 col-md-4 col-xl-4" id="big-red-button">
+        <form class="form-group" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+            <label for="tableNumber">Table Number:</label>
+            <input class="form-control" type="number" id="tableNumber" name="tableNumber" >
+            <br>
+            <button class="btn btn-success" type="submit">
                 Create A New Order
             </button>
         </form>

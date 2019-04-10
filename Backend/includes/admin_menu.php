@@ -7,14 +7,16 @@
         <a class="dropdown-item" href="#">View Menu</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Add Menu Catagory</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">View Inventory</a>
     </div>
 </li>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="inventoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Inventory
+        Kitchen
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">View Inventory</a>
+        <a class="dropdown-item" href="total_make_list.php">View Make List</a>
     </div>
 </li>
 <li class="nav-item dropdown">
@@ -33,7 +35,7 @@
 </li>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Employee Management
+        Employee
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="create_employee.php">Add Employee</a>
@@ -45,7 +47,7 @@
 </li>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="customerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Customer Management
+        Customer
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="create_customer.php">Add Customer</a>

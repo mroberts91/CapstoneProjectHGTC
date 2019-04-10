@@ -12,7 +12,7 @@ try{
     $userID = $_SESSION['user_id'];
     $db = new Connection();
     $orderManager = new OrderManager($db);
-    $orders = $orderManager->getAllOpenOrdersByEmp((int)$userID);
+    $orders = $orderManager->getAllOpenOrders();
 } catch (Exception $e){
     $errormsg = $e->getMessage();
 }
@@ -21,15 +21,9 @@ try{
 <div class="row">
     <div class="col-xl-2 d-none d-xl-block"></div>
     <div class="col-md-10 col-xl-8">
-        <h1 class="text-center">Your Open Orders</h1>
+        <h1 class="text-center">Orders To Be Cooked</h1>
     </div>
     <div class="col-md-2 col-xl-2">
-        <button class="btn btn-success" id="newOrderButton" >Create New Order</button>
-        <script>
-            $('#newOrderButton').on('click', function () {
-                window.location = "create_new_order.php";
-            })
-        </script>
     </div>
 
 
@@ -42,8 +36,6 @@ try{
             <tr>
                 <th>Order ID #</th>
                 <th>Employee</th>
-                <th>Table #</th>
-                <th>Subtotal</th>
                 <th>GrandTotal</th>
                 <th>Item Count</th>
                 <th>OrderStatus</th>
@@ -57,13 +49,11 @@ try{
                 echo '<tr>';
                 echo '<th>'.$o->getIdOrder().'</th>';
                 echo '<td>'.$o->getEmpFirstname().' '. $o->getEmpLastname().'</td>';
-                echo '<td>'.$o->getTableNumber().'</td>';
-                echo '<td>$'.$o->getSubtotal().'</td>';
-                echo '<td>$'.$o->getGrandTotal().'</td>';
-                echo '<td>'.$o->getOrderItemCount().' Items</td>';
+                echo '<td>'.$o->getGrandTotal().'</td>';
+                echo '<td>'.$o->getOrderItemCount().'</td>';
                 echo '<td>'.$o->getOrderStatus().'</td>';
-                echo '<th><a href="edit_order.php?id='.$o->getIdOrder().'">Edit</a></th>';
-                echo '<th><a class="text-center" href="complete_order.php?id='.$o->getIdOrder().'">Complete Order</a></th>';
+                echo '<th><a href="make_order_list.php?id='.$o->getIdOrder().'">Show List</a></th>';
+                echo '<th><a href="set_make_status.php?id='.$o->getIdOrder().'">Set As Made</a></th>';
                 echo '</tr>';
             }
             ?>

@@ -36,13 +36,13 @@ try{
 </div>
 <br>
 <div class="row">
-    <div class="col-md-1 col-lg-1"></div>
-    <div class="col-md-10 col-lg-10">
+    <div class="col-md-12">
         <table id="example" class="display" style="width:100%">
             <thead>
             <tr>
                 <th>Order ID #</th>
                 <th>Employee</th>
+                <th>Table #</th>
                 <th>Subtotal</th>
                 <th>GrandTotal</th>
                 <th>Item Count</th>
@@ -57,6 +57,7 @@ try{
                 echo '<tr>';
                 echo '<th>'.$o->getIdOrder().'</th>';
                 echo '<td>'.$o->getEmpFirstname().' '. $o->getEmpLastname().'</td>';
+                echo '<td>'.$o->getTableNumber().'</td>';
                 echo '<td>'.$o->getSubtotal().'</td>';
                 echo '<td>'.$o->getGrandTotal().'</td>';
                 echo '<td>'.$o->getOrderItemCount().'</td>';
@@ -69,9 +70,6 @@ try{
             </tbody>
         </table>
     </div>
-
-    <div class="col-md-1 col-lg-1"></div>
-
 </div>
 <?php
 require_once __DIR__."/includes/footer.php";

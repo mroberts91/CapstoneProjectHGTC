@@ -28,7 +28,7 @@ try{
     $db = new Connection();
     $om = new OrderManager($db);
     $presentItems = $om->getAllItemsByOrderIdForUI($orderNumber);
-
+//    die(json_encode($presentItems));
 }catch (\Exception $e){
 
 }
@@ -46,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $newItem->setIdOrder($orderNumber);
                 $newItem->setIdMenuItem((int)$item['id_MenuItem']);
                 $newItem->setItemPrice((float)$item['ItemPrice']);
+                $newItem->setNotes(($item['Notes'] == null) ? "" : $item['Notes']);
+                $newItem->setIsNew(($item['IsNew'] == 1)? true : false);
+                $newItem->setToDelete(($item['ToDelete'] == 1)? true : false);
                 array_push($itemsToSave, $newItem);
             }
             $orderManager->updateOrderStatus(OrderStatus::$OPEN, $orderNumber);
@@ -54,11 +57,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $orderManager->updateOrderGrandTotal($orderNumber, $subtotal);
             echo '<script>window.location = "your_orders.php"</script>';
 
-        }
-        if (isset($_POST['completeOrder'])) {
-            print_r(json_decode($_POST['itemsToComplete']));
+        } elseif (isset($_POST['completeOrder'])) {
+            $itemsToSave = array();
+            $postItems = (array)json_decode($_POST['itemsToComplete'], true);
+            foreach ($postItems as $item) {
+                $newItem = new OrderItem();
+                $newItem->setIdOrder($orderNumber);
+                $newItem->setIdMenuItem((int)$item['id_MenuItem']);
+                $newItem->setItemPrice((float)$item['ItemPrice']);
+                $newItem->setNotes(($item['Notes'] == null) ? "" : $item['Notes']);
+                array_push($itemsToSave, $newItem);
+            }
+            $orderManager->updateOrderStatus(OrderStatus::$COMPLETED, $orderNumber);
+            $orderManager->addItemsToOrder($itemsToSave, $orderNumber);
+            $subtotal = $orderManager->getOrderSubtotal($orderNumber);
+            $orderManager->updateOrderGrandTotal($orderNumber, $subtotal);
+            echo '<script>window.location = "your_orders.php"</script>';
 
-            die('Complete');
+        }elseif (isset($_POST['cancelOrder'])) {
+            $orderManager->setCancelledStatus($orderNumber);
+            echo '<script>window.location = "your_orders.php"</script>';
         }
     } catch (\Exception $e){
         die($e->getMessage());
@@ -85,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </div>
 <br>
 <div class="row">
-    <div class="col-md-12 col-xl-12">
+    <div class="col-md-12 col-xl-8">
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Appitizers</a></li>
@@ -101,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 foreach ($apps as $a){
                     echo '<div class="btn btn-secondary col-md-3 menuItem appItem" id="'.$a->getIdMenuItem().'"  price="'.$a->getPrice().'" item="'.$a->getName().'">';
                     echo '<p>'.$a->getShortName().'</p>';
-                    echo '<p>'.$a->getPrice().'</p>';
+//                    echo '<p>'.$a->getPrice().'</p>';
                     echo '</div>';
                 }
             } catch (Exception $e) {
@@ -118,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 foreach ($meals as $a){
                     echo '<div class="btn btn-secondary col-md-3 menuItem entreeItem" id="'.$a->getIdMenuItem().'"  price="'.$a->getPrice().'" item="'.$a->getName().'">';
                     echo '<p>'.$a->getShortName().'</p>';
-                    echo '<p>'.$a->getPrice().'</p>';
+//                    echo '<p>'.$a->getPrice().'</p>';
                     echo '</div>';
                 }
             } catch (Exception $e) {
@@ -135,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 foreach ($desserts as $a){
                     echo '<div class="btn btn-secondary col-md-3 menuItem dessertItem" id="'.$a->getIdMenuItem().'" price="'.$a->getPrice().'" item="'.$a->getName().'">';
                     echo '<p>'.$a->getShortName().'</p>';
-                    echo '<p>'.$a->getPrice().'</p>';
+//                    echo '<p>'.$a->getPrice().'</p>';
                     echo '</div>';
                 }
             } catch (Exception $e) {
@@ -152,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 foreach ($drinks as $a){
                     echo '<div class="btn btn-secondary col-md-3 menuItem bevItem" id="'.$a->getIdMenuItem().'" price="'.$a->getPrice().'" item="'.$a->getName().'">';
                     echo '<p>'.$a->getShortName().'</p>';
-                    echo '<p>'.$a->getPrice().'</p>';
+//                    echo '<p>'.$a->getPrice().'</p>';
                     echo '</div>';
                 }
             } catch (Exception $e) {
@@ -163,29 +181,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
     </div>
     </div>
-</div>
-<br>
-<div id="order-items-container">
-    <table class="table">
-        <thead>
+    <div class="col-md-12 col-xl-4" id="order-items-container">
+        <table class="table">
+            <thead>
             <tr>
                 <th scope="col">Item Name</th>
                 <th scope="col">Item Price</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
-        </thead>
-        <tbody id="order-list">
+            </thead>
+            <tbody id="order-list">
 
-        </tbody>
-        <tr>
-            <th>Total</th>
-            <td id="total"></td>
-        </tr>
-    </table>
+            </tbody>
+            <tr>
+                <th>Total</th>
+                <td id="total"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <br>
+<br>
 <div id="badOptions">
-    <button class="btn btn-danger optionButton">Cancel Order</button>
+    <form action="<?php echo $_SERVER['PHP_SELF'] . '?id='.$orderNumber; ?>" method="POST">
+        <button class="btn btn-danger optionButton" id="cancelOrder" type="button">Cancel Order</button>
+        <button class="btn btn-danger optionButton" id="areYouSure" name="cancelOrder" type="submit">YES, CANCEL ORDER</button>
+    </form>
+</div>
+<br><br>
+<div class="modal" id="editItem" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Item</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-group">
+                    <label for="editItemName">Item Name</label>
+                    <input class="form-control" id="editItemName" name="editItemName" value="" readonly>
+                    <label for="editItemPrice">Item Price</label>
+                    <input class="form-control" id="editItemPrice" name="editItemPrice" value="" type="number">
+                    <label for="editItemNote">Notes</label>
+                    <input class="form-control" id="editItemNote" name="editItemNote" value="" type="text">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a>
+                    <button type="button" class="btn btn-success" id="submitEditItem">Submit</button>
+                </a>
+                &nbsp;
+                <a>
+                    <button type="button" class="btn btn-secondary" id="closeEditItem">Close</button>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 echo $errormsg;

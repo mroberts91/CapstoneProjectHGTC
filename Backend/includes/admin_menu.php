@@ -3,9 +3,9 @@
         Menu
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">View Menu</a>
+        <a class="dropdown-item" href="backendMenuItem.php">View Menu</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Add Menu Catagory</a>
+        <a class="dropdown-item" href="addMenuItem.php">Add Menu Item</a>
     </div>
 </li>
 <li class="nav-item dropdown">

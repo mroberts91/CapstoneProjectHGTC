@@ -8,7 +8,7 @@
 
 namespace Customer;
 use Core\_DataEntity;
-require_once __DIR__."/../managers/_DataManager.php";
+require_once __DIR__."/_DataEntity.php";
 
 /**
  * Class CustomerLogin

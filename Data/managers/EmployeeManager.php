@@ -5,6 +5,7 @@ use Core\PasswordUtils;
 use \Exception;
 require_once __DIR__."/_DataManager.php";
 require_once __DIR__."/../dto/EmployeeLogin.php";
+require_once __DIR__."/../dto/Employee.php";
 require_once __DIR__."/../dto/NewEmployee.php";
 require_once __DIR__."/../common/PasswordUtils.php";
 
@@ -38,6 +39,47 @@ class EmployeeManager extends _DataManager
             return false;
         }
     }
+
+    /**
+     * @return bool| Employee[]
+     * @throws Exception
+     */
+    public function getAllEmployeesForUserList(){
+        $result = $this->Connection->SQLRequest("SELECT * FROM vw_emp_manage");
+        if (count($result) > 0 ){
+            $empArray = $this->buildEmpArrayForManagementTable($result);
+            return $empArray;
+        } else{
+            return false;
+        }
+    }
+
+    /**
+     * @param Employee $EmployeeObj
+     * @return bool
+     * @throws Exception
+     */
+    public function updateEmployee($EmployeeObj) : bool{
+        try{
+            $data1 = array($EmployeeObj->getIdDepartment(), $EmployeeObj->getIdEmployee());
+            $data2 = array($EmployeeObj->getFirstname(), $EmployeeObj->getLastname(),
+                $EmployeeObj->getAddress(), $EmployeeObj->getCity(), $EmployeeObj->getState(),
+                $EmployeeObj->getZip(), $EmployeeObj->getIdEmployee());
+
+            $this->Connection->SQLNonQuery(
+                "UPDATE emp_Employee SET id_Department = ? where id_Employee = ?", $data1);
+            $this->Connection->SQLNonQuery(
+                "UPDATE emp_EmployeeDetail SET Firstname=?, Lastname=?, Address=?, City=?, State=?, Zip=? WHERE id_Employee = ?",
+                $data2
+            );
+            return true;
+        } catch (Exception $e){
+            echo $e->getTraceAsString();
+            echo $e->getMessage();
+            throw $e;
+        }
+    }
+
 
     /**
      * @param NewEmployee $employee
@@ -135,6 +177,25 @@ class EmployeeManager extends _DataManager
                     999
                 );
             }
+            array_push($rtn, $emp);
+        }
+        return $rtn;
+    }
+    /**
+     * @param $ResultSet
+     * @return Employee[]
+     * @throws Exception
+     */
+    private function buildEmpArrayForManagementTable($ResultSet){
+        $rtn = array();
+        foreach ($ResultSet as $item){
+            $emp = new Employee();
+            $emp->setIdEmployee($item['id_Employee']);
+            $emp->setFirstname($item['Firstname']);
+            $emp->setLastname($item['Lastname']);
+            $emp->setIdDepartment($item['id_Department']);
+            $emp->setDepartmentName($item['DeptName']);
+            $emp->setEmail($item['Email']);
             array_push($rtn, $emp);
         }
         return $rtn;

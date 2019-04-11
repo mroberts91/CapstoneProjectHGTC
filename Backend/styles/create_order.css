@@ -1,0 +1,58 @@
+
+.menuItem{
+    color: #FFF;
+    font-size: 105%;
+    border: 1px solid;
+    margin: .2em .5em;
+    padding: 1em;
+}
+#tabs{
+    font-size: 115%;
+}
+#tabs ul li{
+    margin: 0 .3em;
+}
+.ui-state-active{
+    background-color: #3a4660 !important;
+    border-color: #3a4660 !important;
+}
+.ui-tabs-active{
+    background-color: #3a4660 !important;
+    border-color: #3a4660 !important;
+}
+/*@media (min-width: 1200px) {*/
+    /*#order-items-container{*/
+        /*position: absolute;*/
+        /*top: 9em;*/
+        /*left: 80%;*/
+        /*height: 100%;*/
+    /*}*/
+/*}*/
+@media (min-width: 576px) {
+    #order-items-container{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+#total-price{
+    font-size: 125%;
+}
+.remove-item{
+    color: darkred;
+}
+#goodOptions{
+    width: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+#badOptions{
+    width: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+.optionButton{
+    margin: 0 .2em;
+}

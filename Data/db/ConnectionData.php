@@ -1,6 +1,9 @@
-<?php
+
+
 namespace Connection;
+
 use PDO;
+
 class ConnectionData
 {
     /**
@@ -34,6 +37,6 @@ class ConnectionData
 
     public function __construct()
     {
-        $this::$dsn = "mysql: host=".$this::$uri.";dbname=".$this::$dbname;
+        $this::$dsn = "mysql: host=" . $this::$uri . ";dbname=" . $this::$dbname;
     }
 }

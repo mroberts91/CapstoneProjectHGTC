@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         try {
             $db = new Connection();
             $em = new EmployeeManager($db);
-            $newEmp = new NewEmployee($dept, $lname, $password, $email, $fname, $addr, $city, $state, $zip);
+            $newEmp = new NewEmployee($dept, $lname,$email, $password, $fname, $addr, $city, $state, $zip);
             if ($em->createNewEmployee($newEmp)){
                 $postSuccess = true;
             }

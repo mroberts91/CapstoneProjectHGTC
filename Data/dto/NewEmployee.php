@@ -57,7 +57,7 @@ class NewEmployee extends _DataEntity
      * @param string $State
      * @param string $Zip
      */
-    public function __construct(int $id_Department, string $Lastname, string $Email, string $Firstname = null, string $Address = null, string $City = null, string $State = null, string $Zip = null)
+    public function __construct(int $id_Department, string $Lastname, string $Email, string $Password, string $Firstname = null, string $Address = null, string $City = null, string $State = null, string $Zip = null)
     {
         $this->id_Department = $id_Department;
         $this->Firstname = $Firstname;
@@ -67,7 +67,7 @@ class NewEmployee extends _DataEntity
         $this->State = $State;
         $this->Zip = $Zip;
         $this->Email = $Email;
-        $this->Password = PasswordUtils::generateHash(self::TempPassword);
+        $this->Password = $Password;
         parent::__construct();
     }
 

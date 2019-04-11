@@ -4,44 +4,41 @@ use Connection\Connection;
 use Customer\CustomerManager;
 
 require_once __DIR__."/header.php";
-
-require_once __DIR__ . "/../Data/managers/CustomerManager.php";
-require_once __DIR__ . "/../Data/dto/CustomerLogin.php";
-require_once __DIR__ . "/../Data/dto/Customer.php";
-require_once __DIR__ . "/../Data/db/Connection.php";
-// This will eventually need to be replaced with actual login functionality.
-
-$loginFailure = false;
+require_once __DIR__."/../Data/managers/CustomerManager.php";
+require_once __DIR__."/../Data/dto/CustomerLogin.php";
+require_once __DIR__."/../Data/dto/Customer.php";
+$errormsg = '';
 $loginSuccess = false;
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $errormsg = "";
-    try {
-        $email = trim(strtolower($_POST['email']));
-        $passwd = trim($_POST['password']);
-        echo $email;
-        echo '<br>' . $passwd;
+$loginError = false;
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    try{
         $db = new Connection();
         $cm = new CustomerManager($db);
-
-        if ($cmLogin = $cm->checkCustomerLogin($email, $passwd)) {
-            $loginSuccess = true;
-            $fullcm = $cm->getCustomerById($cmLogin->getIdCustomer());
-            $_SESSION['user_id_cust'] = $fullcm->getIdCustomer();
-            $_SESSION['user_name_cust'] = $fullcm->getFirstname() . ' ' . $fullcm->getLastname();
-            $_SESSION['full_user_cust'] = $fullcm;
-            if ($cmLogin->isTempPassword()){
-                echo "<script> window.location='index.php' </script>";
-            }
-        } else {
-            $errormsg .= "<p>Your username or password was incorrect.<br>Please try again.</p>";
-            $loginFailure = true;
-            echo $errormsg;
+        if (!isset($_POST['email']) || !isset($_POST['password'])){
+            $errormsg .= '<p>Email or Password is incorrect</p>';
+            $loginError = true;
         }
-    } catch (Exception $e) {
-        $loginFailure = true;
-        $errormsg .= "<p>" . $e->getMessage() . "</p>";
+        if (!$loginError){
+            $email = trim(strtolower($_POST['email']));
+            $passwd = trim($_POST['password']);
+            if ($custLogin = $cm->checkCustomerLogin($email, $passwd)){
+                $fullCustomer = $cm->getCustomerById($custLogin->getIdCustomer());
+                $_SESSION['customer_id'] = $custLogin->getIdCustomer();
+                $_SESSION['customer_name'] = $fullCustomer->getFirstname() . " " . $fullCustomer->getLastname();
+                $_SESSION['customer_email'] = $custLogin->getEmail();
+                $_SESSION['customer_cart'] = array();
+                echo '<script>window.location = "create_online_order.php"</script>';
+            } else{
+                $errormsg .= '<p>Email or Password is incorrect</p>';
+                $loginError = true;
+            }
+        }
+    } catch (Exception $e){
+        $errormsg .= '<p>'.$e->getMessage().'</p>';
     }
+
 }
+
 ?>
 <link rel="stylesheet" type="text/css" href="styles/login.css">
 <br>
@@ -66,6 +63,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-4"></div>
     </div>
 </div>
+    <div class="modal fade" id="profileSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>You information was successfully updated!</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?php echo $_SERVER['PHP_SELF']; ?> "><button type="button" class="btn btn-secondary">Close</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="profileError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                </div>
+                <div class="modal-body"><?php echo $errormsg ?>
+                </div>
+                <div class="modal-footer">
+                    <a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php
 require_once __DIR__."/footer.php";
+if ($postError){
+    echo "<script src='js/customer/profileError.js'></script>";
+}
+if ($postSuccess){
+    echo "<script src='js/customer/profileSuccess.js'></script>";
+}
+
 ?>

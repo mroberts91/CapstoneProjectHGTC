@@ -5,6 +5,7 @@ use Core\PasswordUtils;
 use \Exception;
 require_once __DIR__."/_DataManager.php";
 require_once __DIR__."/../common/PasswordUtils.php";
+require_once __DIR__."/../dto/Customer.php";
 
 
 class CustomerManager extends _DataManager
@@ -107,13 +108,65 @@ class CustomerManager extends _DataManager
      * @return bool - Returns a bool whether a record with that email already exists
      * @throws Exception
      */
-    public function checkIfEmailIsUnique($email){
+    public function checkIfEmailIsUnique($email) : bool{
         $result = $this->Connection->SQLRequest(
             "SELECT * FROM vw_cust_Login WHERE Email = ?",$email
         );
         return (count($result) > 0 )? false : true;
     }
 
+    /**
+     * @param Customer $CustomerObj
+     * @return bool
+     * @throws Exception
+     */
+    public function updateCustomer($CustomerObj) : bool{
+        try{
+            $data1 = array($CustomerObj->getIdLocation(), $CustomerObj->getIdCustomer());
+            $data2 = array($CustomerObj->getFirstname(), $CustomerObj->getLastname(),
+                $CustomerObj->getAddress(), $CustomerObj->getCity(), $CustomerObj->getState(),
+                $CustomerObj->getZip(), $CustomerObj->getIdCustomer());
+
+            $this->Connection->SQLNonQuery(
+                "UPDATE cust_Customer SET id_Location = ? where id_Customer = ?", $data1);
+            $this->Connection->SQLNonQuery(
+                "UPDATE cust_CustomerDetail SET Firstname=?, Lastname=?, Address=?, City=?, State=?, Zip=? WHERE id_Customer = ?",
+                $data2
+            );
+            return true;
+        } catch (Exception $e){
+            echo $e->getTraceAsString();
+            echo $e->getMessage();
+            throw $e;
+        }
+    }
+
+    /**
+     * @return bool | Customer[]
+     * @throws Exception
+     */
+    public function getAllCustomersForManagment(){
+        $result = $this->Connection->SQLRequest("SELECT * FROM vw_cust_Manage");
+        $rtn = array();
+        if (count($result) > 0 ){
+            foreach ($result as $item){
+                $cust = new Customer();
+                $cust->setIdCustomer($item['id_Customer']);
+                $cust->setIdLocation($item['id_Location']);
+                $cust->setLocationName($item['PrefLocation']);
+                $cust->setFirstname($item['Firstname']);
+                $cust->setLastname($item['Lastname']);
+                $cust->setAddress($item['Address']);
+                $cust->setState($item['State']);
+                $cust->setZip($item['Zip']);
+                $cust->setEmail($item['Email']);
+                array_push($rtn, $cust);
+            }
+            return $rtn;
+        } else{
+            return false;
+        }
+    }
 
     /**
      * @param array $ResultSet - The result of a SQL Query.

@@ -132,8 +132,8 @@ class Customer extends _DataEntity
 
     /**
      * @param $id_Customer
-     * @param $id_Department
-     * @param $DepartmentName
+     * @param $id_Location
+     * @param $LocationName
      * @param $Firstname
      * @param $Lastname
      * @param $Address
@@ -142,8 +142,10 @@ class Customer extends _DataEntity
      * @param $Zip
      * @param $Email
      * @param $Password
+     * @param $id_Department
+     * @param $DepartmentName
      */
-    public function buildFromParameters($id_Customer, $id_Department, $DepartmentName, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email, $Password, $id_Location, $LocationName){
+    public function buildFromParameters($id_Customer, $id_Location, $LocationName, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email, $Password = null, $id_Department = null, $DepartmentName = null){
         $this->id_Customer = $id_Customer;
         $this->id_Department = $id_Department;
         $this->DepartmentName = $DepartmentName;
@@ -278,7 +280,7 @@ class Customer extends _DataEntity
     /**
      * @param int $id_Customer
      */
-    public function setIdCustomer(int $id_Customer): void
+    public function setIdCustomer(int $id_Customer)
     {
         $this->id_Customer = $id_Customer;
     }
@@ -286,7 +288,7 @@ class Customer extends _DataEntity
     /**
      * @param int $id_Department
      */
-    public function setIdDepartment(int $id_Department): void
+    public function setIdDepartment(int $id_Department)
     {
         $this->id_Department = $id_Department;
     }
@@ -294,7 +296,7 @@ class Customer extends _DataEntity
     /**
      * @param string $DepartmentName
      */
-    public function setDepartmentName(string $DepartmentName): void
+    public function setDepartmentName(string $DepartmentName)
     {
         $this->DepartmentName = $DepartmentName;
     }
@@ -302,7 +304,7 @@ class Customer extends _DataEntity
     /**
      * @param string $Firstname
      */
-    public function setFirstname(string $Firstname): void
+    public function setFirstname(string $Firstname)
     {
         $this->Firstname = $Firstname;
     }
@@ -310,7 +312,7 @@ class Customer extends _DataEntity
     /**
      * @param string $Lastname
      */
-    public function setLastname(string $Lastname): void
+    public function setLastname(string $Lastname)
     {
         $this->Lastname = $Lastname;
     }
@@ -318,7 +320,7 @@ class Customer extends _DataEntity
     /**
      * @param string $Address
      */
-    public function setAddress(string $Address): void
+    public function setAddress(string $Address)
     {
         $this->Address = $Address;
     }
@@ -326,7 +328,7 @@ class Customer extends _DataEntity
     /**
      * @param string $City
      */
-    public function setCity(string $City): void
+    public function setCity(string $City)
     {
         $this->City = $City;
     }
@@ -334,7 +336,7 @@ class Customer extends _DataEntity
     /**
      * @param string $State
      */
-    public function setState(string $State): void
+    public function setState(string $State)
     {
         $this->State = $State;
     }
@@ -342,7 +344,7 @@ class Customer extends _DataEntity
     /**
      * @param string $Zip
      */
-    public function setZip(string $Zip): void
+    public function setZip(string $Zip)
     {
         $this->Zip = $Zip;
     }
@@ -350,7 +352,7 @@ class Customer extends _DataEntity
     /**
      * @param string $Email
      */
-    public function setEmail(string $Email): void
+    public function setEmail(string $Email)
     {
         $this->Email = $Email;
     }
@@ -358,7 +360,7 @@ class Customer extends _DataEntity
     /**
      * @param string $Password
      */
-    public function setPassword(string $Password): void
+    public function setPassword(string $Password)
     {
         $this->Password = $Password;
     }
@@ -374,7 +376,7 @@ class Customer extends _DataEntity
     /**
      * @param mixed $id_Location
      */
-    public function setIdLocation($id_Location): void
+    public function setIdLocation($id_Location)
     {
         $this->id_Location = $id_Location;
     }
@@ -390,7 +392,7 @@ class Customer extends _DataEntity
     /**
      * @param mixed $LocationName
      */
-    public function setLocationName($LocationName): void
+    public function setLocationName($LocationName)
     {
         $this->LocationName = $LocationName;
     }

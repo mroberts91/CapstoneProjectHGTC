@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <input class="form-control" type="password" name="password" id="password" required>
                     <br>
                     <button class="btn btn-danger" type="submit" name="submit">Login</button>
-                    <a href="create_customer.php"><button class="btn btn-danger" type="button">Create Account</button></a>
+                    <a href="create_cust.php"><button class="btn btn-danger" type="button">Create Account</button></a>
                 </form>
 
             </div>

@@ -3,6 +3,7 @@
 namespace Core;
 use \Exception;
 require_once __DIR__."/_DataManager.php";
+require_once __DIR__."/../dto/State.php";
 
 class GeoManager extends _DataManager
 {
@@ -46,5 +47,15 @@ class GeoManager extends _DataManager
             array_push($rtn, $state);
         }
         return $rtn;
+    }
+
+    /**
+     * @param $id Location ID
+     * @return string
+     * @throws Exception
+     */
+    public function getLocationById($id){
+        $result = $this->Connection->SQLRequest("SELECT Name FROM lu_Location WHERE id_Location = ?", $id);
+        return $result[0];
     }
 }

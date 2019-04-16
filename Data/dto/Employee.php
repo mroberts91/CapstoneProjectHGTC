@@ -89,10 +89,10 @@ class Employee extends _DataEntity
         }
     }
 
-    public function buildFromParameters($id_Employee, $id_Department, $DepartmentNam, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email){
+    public function buildFromParameters($id_Employee, $id_Department, $Firstname, $Lastname, $Address, $City, $State, $Zip, $Email, $DepartmentName = null){
         $this->id_Employee = $id_Employee;
         $this->id_Department = $id_Department;
-        $this->DepartmentName = $DepartmentNam;
+        $this->DepartmentName = $DepartmentName;
         $this->Firstname = $Firstname;
         $this->Lastname = $Lastname;
         $this->Address = $Address;
@@ -189,6 +189,87 @@ class Employee extends _DataEntity
     {
         return $this->IsValid;
     }
+
+    /**
+     * @param int $id_Employee
+     */
+    public function setIdEmployee(int $id_Employee)
+    {
+        $this->id_Employee = $id_Employee;
+    }
+
+    /**
+     * @param int $id_Department
+     */
+    public function setIdDepartment(int $id_Department)
+    {
+        $this->id_Department = $id_Department;
+    }
+
+    /**
+     * @param string $DepartmentName
+     */
+    public function setDepartmentName(string $DepartmentName)
+    {
+        $this->DepartmentName = $DepartmentName;
+    }
+
+    /**
+     * @param string $Firstname
+     */
+    public function setFirstname(string $Firstname)
+    {
+        $this->Firstname = $Firstname;
+    }
+
+    /**
+     * @param string $Lastname
+     */
+    public function setLastname(string $Lastname)
+    {
+        $this->Lastname = $Lastname;
+    }
+
+    /**
+     * @param string $Address
+     */
+    public function setAddress(string $Address)
+    {
+        $this->Address = $Address;
+    }
+
+    /**
+     * @param string $City
+     */
+    public function setCity(string $City)
+    {
+        $this->City = $City;
+    }
+
+    /**
+     * @param string $State
+     */
+    public function setState(string $State)
+    {
+        $this->State = $State;
+    }
+
+    /**
+     * @param string $Zip
+     */
+    public function setZip(string $Zip)
+    {
+        $this->Zip = $Zip;
+    }
+
+    /**
+     * @param string $Email
+     */
+    public function setEmail(string $Email)
+    {
+        $this->Email = $Email;
+    }
+
 
 
 }

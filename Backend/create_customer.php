@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <input class="form-control" id="city" name="city" type="text">
                 <label for="state">State</label>
                 <select class="form-control" id="state" name="state">
-                    <option value="XX">Select a State</option>
+                    <option value="">Select a State</option>
                     <?php
                     foreach ($states as $s) {
                         echo '<option value="'.$s->getIdState().'" >'. $s->getName().'</option>';

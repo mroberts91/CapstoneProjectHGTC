@@ -76,7 +76,7 @@ class NewCustomer extends _DataEntity
         $this->Zip = $Zip;
         $this->Email = $Email;
         $this->Password = PasswordUtils::generateHash($Password);
-        $this->Location = $Location;
+        $this->Location = ($Location == null)? 100 : $Location;
         parent::__construct();
     }
 
@@ -227,7 +227,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return int
      */
-    public function getLocation(): int
+    public function getLocation()
     {
         return $this->Location;
     }

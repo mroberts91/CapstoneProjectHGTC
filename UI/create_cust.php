@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="lastname">Last Name</label>
                     <input class="form-control" id="lastname" name="lastname" type="text" >
                     <label for="password">Password</label>
+                    <input class="form-control" id="password" name="password" type="password">
                     <label for="showPassword">Show Password </label>
                     <input type="checkbox" id="showPassword" onclick="myFunction()">
                     <br>

@@ -67,7 +67,8 @@ class NewEmployee extends _DataEntity
         $this->State = $State;
         $this->Zip = $Zip;
         $this->Email = $Email;
-        $this->Password = $Password;
+        $this->Password = PasswordUtils::generateHash($Password);
+
         parent::__construct();
     }
 

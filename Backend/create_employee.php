@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $dept = $_POST['dept'];
     $email = strtolower($_POST['email']);
     $password = trim($_POST['password']);
+
     $fname = isset($_POST['firstname'])? $_POST['firstname'] : null;
     $addr = isset($_POST['address'])? $_POST['address'] : null;
     $city = isset($_POST['city'])? $_POST['city'] : null;

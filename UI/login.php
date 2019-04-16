@@ -38,6 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
 }
+if ($loginError){
+    require_once __DIR__."/footer.php";
+    echo "<script src='js/customer/profileError.js'></script>";
+}
+if ($loginSuccess){
+    require_once __DIR__."/footer.php";
+    echo "<script src='js/customer/profileSuccess.js'></script>";
+}
+
 
 ?>
 <link rel="stylesheet" type="text/css" href="styles/login.css">
@@ -72,10 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>You information was successfully updated!</p>
+                    <p>You have successfully logged in!</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?> "><button type="button" class="btn btn-secondary">Close</button></a>
+                    <a href="create_online_order.php"><button type="button" class="btn btn-secondary">Close</button></a>
                 </div>
             </div>
         </div>
@@ -98,11 +107,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
 <?php
 require_once __DIR__."/footer.php";
-if ($postError){
-    echo "<script src='js/customer/profileError.js'></script>";
-}
-if ($postSuccess){
-    echo "<script src='js/customer/profileSuccess.js'></script>";
-}
-
 ?>

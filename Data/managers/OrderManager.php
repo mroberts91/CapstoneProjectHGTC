@@ -99,14 +99,16 @@ class OrderManager extends _DataManager
                 $item->getIdOrder(),
                 $item->getIdMenuItem(),
                 $item->getItemPrice(),
-                $item->getNotes()
+                $item->getNotes(),
+                $item->getisCooked()
             );
 //            if ($item->isToDelete()){
 //
 //            }
             try{
                 $this->Connection->SQLNonQuery(
-                    "INSERT INTO order_OrderDetail (id_Order, id_MenuItem, ItemPrice, Notes) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO order_OrderDetail (id_Order, id_MenuItem, ItemPrice, Notes, IsCooked)
+                    VALUES (?, ?, ?, ?, ?)",
                     $params
                 );
 
@@ -170,6 +172,27 @@ class OrderManager extends _DataManager
         return $rtn;
     }
 
+    /**
+     * @param $orderID
+     * @return OrderItem[]
+     * @throws \Exception
+     */
+    public function getAllNeedToBeCookedItems($orderID){
+        $rtn = array();
+        $results = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_order_DisplayOrder WHERE id_Order = ? AND IsCooked = 0", $orderID
+        );
+        foreach ($results as $item) {
+            $i = new OrderItem();
+            $i->setIdOrder($item['id_Order']);
+            $i->setIdMenuItem($item['id_MenuItem']);
+            $i->setName($item['Name']);
+            $i->setNotes($item['Notes']);
+            $i->setIsCooked($item['IsCooked']);
+            array_push($rtn, $i);
+        }
+        return $rtn;
+    }
 
 
     /**

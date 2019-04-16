@@ -37,7 +37,7 @@ class OrderItem extends _DataEntity
     private $Name;
 
     /**
-     * @var bool
+     * @var int
      */
     private $IsCooked;
 
@@ -148,7 +148,7 @@ class OrderItem extends _DataEntity
     }
 
     /**
-     * @return bool
+     * @return int
      */
     public function getisCooked()
     {
@@ -160,7 +160,7 @@ class OrderItem extends _DataEntity
      */
     public function setIsCooked($IsCooked)
     {
-        $this->IsCooked = ($IsCooked == 1)? true: false;
+        $this->IsCooked = $IsCooked;
     }
 
     /**

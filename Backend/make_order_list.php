@@ -15,7 +15,7 @@ if ($orderNumber == null) {
 try{
     $db = new Connection();
     $orderManager = new OrderManager($db);
-    $orderItems = $orderManager->getAllItemsByOrder($orderNumber);
+    $orderItems = $orderManager->getAllNeedToBeCookedItems($orderNumber);
 } catch (Exception $e){
     $errormsg = $e->getMessage();
 }

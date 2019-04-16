@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $newItem->setIdMenuItem((int)$item['id_MenuItem']);
                 $newItem->setItemPrice((float)$item['ItemPrice']);
                 $newItem->setNotes(($item['Notes'] == null) ? "" : $item['Notes']);
+                $newItem->setIsCooked((int)$item['IsCooked']);
                 $newItem->setIsNew(($item['IsNew'] == 1)? true : false);
                 $newItem->setToDelete(($item['ToDelete'] == 1)? true : false);
                 array_push($itemsToSave, $newItem);

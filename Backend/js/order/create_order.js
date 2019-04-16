@@ -16,7 +16,7 @@ $( function() {
         orderItem.ItemPrice = price;
         orderItem.Name = name;
         orderItem.Notes = '';
-        orderItem.IsNew = 1;
+        orderItem.IsCooked = 0;
         orderItems.push(orderItem);
         updateOrderItemsUI();
     });
@@ -31,10 +31,14 @@ $( function() {
     var hiddenInput2 = $('#itemsToComplete');
     var total = 0.00;
     $.each(orderItems, function (index) {
+        var hideIfCooked = (this.IsCooked === '1') ? 'hidden' : '';
+        var showIfCooked = (this.IsCooked === '1') ?
+            '<th colspan="2">Cooked/Made</th></tr>' :
+            '<td><button class=" btn btn-danger" itemIndex="'+ index +'" onclick="removeOrderItem(event)" '+ hideIfCooked + '>Remove</button></td>' +
+            '<td><button class=" btn btn-primary" itemIndex="'+ index +'" onclick="editOrderItem(event)" '+ hideIfCooked + '>Update</button></td>';
         var node = '<tr id="'+this.id_MenuItem+'"><th scope="row">'
             + this.Name + '</th><td>$' + this.ItemPrice +
-            '</td><td><button class=" btn btn-danger" itemIndex="'+ index +'" onclick="removeOrderItem(event)">Remove</button></td>' +
-            '<td><button class=" btn btn-primary" itemIndex="'+ index +'" onclick="editOrderItem(event)">Update</button></td></tr>';
+            '</td>' + showIfCooked;
         order.append(node);
         total += parseFloat(this.ItemPrice);
     });
@@ -43,10 +47,6 @@ $( function() {
     hiddenInput2.empty();
     hiddenInput1.val(JSON.stringify(orderItems));
     hiddenInput2.val(JSON.stringify(orderItems));
-
-
-
-
 } );
 
 function updateOrderItemsUI() {
@@ -56,10 +56,14 @@ function updateOrderItemsUI() {
     var total = 0.00;
     order.empty();
     $.each(orderItems, function (index) {
+        var hideIfCooked = (this.IsCooked === '1') ? 'hidden' : '';
+        var showIfCooked = (this.IsCooked === '1') ?
+            '<th colspan="2">Cooked/Made</th></tr>' :
+            '<td><button class=" btn btn-danger" itemIndex="'+ index +'" onclick="removeOrderItem(event)" '+ hideIfCooked + '>Remove</button></td>' +
+            '<td><button class=" btn btn-primary" itemIndex="'+ index +'" onclick="editOrderItem(event)" '+ hideIfCooked + '>Update</button></td>';
         var node = '<tr id="'+this.id_MenuItem+'"><th scope="row">'
             + this.Name + '</th><td>$' + this.ItemPrice +
-            '</td><td><button class=" btn btn-danger" itemIndex="'+ index +'" onclick="removeOrderItem(event)">Remove</button></td>' +
-            '<td><button class=" btn btn-primary" itemIndex="'+ index +'" onclick="editOrderItem(event)">Update</button></td></tr>';
+            '</td>' + showIfCooked;
         order.append(node);
         total += parseFloat(this.ItemPrice);
     });
@@ -91,13 +95,10 @@ function editOrderItem(event) {
         modal.hide();
         orderItems[index].ItemPrice = mItemPrice.val();
         orderItems[index].Notes = mItemNotes.val();
-        orderItems[index].IsNew = 1;
         console.log(orderItems[index]);
         updateOrderItemsUI()
     });
     $('#closeEditItem').on('click', function () {
         modal.hide();
-    })
-    // orderItems[index].Notes = "NEW Note";
-    // console.log(orderItems[index])
+    });
 }

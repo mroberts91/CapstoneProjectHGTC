@@ -22,7 +22,7 @@ try{
     $mm = new MenuManager($db);
 
 }catch (\Exception $e){
-
+    die($e->getMessage());
 }
 try{
     $db = new Connection();
@@ -30,7 +30,8 @@ try{
     $presentItems = $om->getAllItemsByOrderIdForUI($orderNumber);
 //    die(json_encode($presentItems));
 }catch (\Exception $e){
-
+    var_dump($presentItems);
+    die($e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -99,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </form>
     <form action="<?php echo $_SERVER['PHP_SELF'] . '?id='.$orderNumber; ; ?>" method="POST">
         <input type="text" value="" id="itemsToComplete" name="itemsToComplete" hidden>
-        <button class="btn btn-success optionButton" type="submit" name="completeOrder">Complete Order</button>
+        <button class="btn btn-success optionButton" type="submit" name="completeOrder">Close Ticket</button>
     </form>
 </div>
 <br>

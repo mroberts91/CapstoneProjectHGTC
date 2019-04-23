@@ -57,6 +57,75 @@ class OrderManager extends _DataManager
     }
 
     /**
+     * @param $id
+     * @return Order[]
+     * @throws \Exception
+     */
+    public function getAllCustomerOrdersByCustID($id){
+        $params = array(
+            33,
+            $id,
+            OrderStatus::$OPEN,
+            OrderStatus::$NEW,
+            OrderStatus::$FOODMADE,
+            OrderStatus::$COMPLETED
+        );
+        $rtn = array();
+        $result = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_order_OpenOrders WHERE id_Employee = ? AND id_Customer = ? AND id_OrderStatus IN(?, ?, ?, ?)", $params
+        );
+        foreach ($result as $order){
+            $o = new Order();
+            $o->setIdOrder($order['id_Order']);
+            $o->setCreated(new DateTime($order['Created']));
+            $o->setSubtotal($order['Subtotal']);
+            $o->setGrandTotal($order['GrandTotal']);
+            $o->setIdEmployee($order['id_Employee']);
+            $o->setEmpFirstname($order['Firstname']);
+            $o->setEmpLastname($order['Lastname']);
+            $o->setOrderItemCount($order['Item Count']);
+            $o->setIdOrderStatus($order['id_OrderStatus']);
+            $o->setOrderStatus($order['Name']);
+            $o->setTableNumber($order['TableNumber']);
+            $o->setIdCustomer($order['id_Customer']);
+            $o->setDateReady(new DateTime($order['DateReady']));
+            array_push($rtn, $o);
+        }
+        return $rtn;
+    }
+
+    /**
+     * @param $orderID
+     * @return Order
+     * @throws \Exception
+     */
+    public function getCustomerOrder($orderID){
+        $params = array(
+            $orderID
+        );
+        $rtn = array();
+        $result = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_order_OpenOrders WHERE id_Order = ?", $params
+        );
+        foreach ($result as $order){
+            $o = new Order();
+            $o->setIdOrder($order['id_Order']);
+            $o->setCreated(new DateTime($order['Created']));
+            $o->setSubtotal($order['Subtotal']);
+            $o->setGrandTotal($order['GrandTotal']);
+            $o->setIdEmployee($order['id_Employee']);
+            $o->setEmpFirstname($order['Firstname']);
+            $o->setEmpLastname($order['Lastname']);
+            $o->setOrderItemCount($order['Item Count']);
+            $o->setIdOrderStatus($order['id_OrderStatus']);
+            $o->setOrderStatus($order['Name']);
+            $o->setTableNumber($order['TableNumber']);
+            $o->setDateReady(new DateTime($order['DateReady']));
+            array_push($rtn, $o);
+        }
+        return $rtn[0];
+    }
+    /**
      * @return Order[]
      * @throws \Exception
      */
@@ -140,6 +209,29 @@ class OrderManager extends _DataManager
     }
 
     /**
+     * @param $creatorID - EmployeeID
+     * @throws \Exception
+     * @return int new order ID
+     */
+    public function createNewCustomerOrder($creatorID, $id_Customer){
+        $params = array($creatorID, 0.00, 0.00, 0.00, $creatorID, $id_Customer);
+        $this->Connection->SQLNonQuery(
+            "INSERT INTO order_Order 
+            (CreatedBy, Subtotal, CalculatedTax, GrandTotal, id_Employee, id_Customer, IsCustomer, id_OrderStatus)
+            VALUES (?,?,?,?,?,?, 1, 400)", $params
+        );
+
+        $id = $this->Connection->SQLRequest(
+            "SELECT id_Order FROM order_Order ORDER BY id_Order DESC LIMIT 1"
+        );
+        $newOrder = $id[0]['id_Order'];
+        $this->Connection->SQLNonQuery(
+            "UPDATE order_Order SET DateReady = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id_Order = ?", $newOrder
+        );
+        return $newOrder;
+    }
+
+    /**
      * @param $id
      * @return OrderItem[]
      * @throws \Exception
@@ -167,6 +259,8 @@ class OrderManager extends _DataManager
             $i->setName($item['Name']);
             $i->setNotes($item['Notes']);
             $i->setIsCooked($item['IsCooked']);
+            $i->setItemPrice($item['ItemPrice']);
+
             array_push($rtn, $i);
         }
         return $rtn;
@@ -202,7 +296,7 @@ class OrderManager extends _DataManager
      */
     public function updateOrderStatus($Status, $id){
         $params = array($Status, $id);
-        $this->Connection->SQLNonQuery("UPDATE order_Order SET id_OrderStatus = ? WHERE id_Order = ?", $params);
+        $this->Connection->SQLNonQuery("UPDATE order_Order SET id_OrderStatus = ?, Updated = now() WHERE id_Order = ?", $params);
     }
 
     /**
@@ -223,7 +317,7 @@ class OrderManager extends _DataManager
     public function updateOrderGrandTotal($id, $subtotal){
         $grandTotal = ($subtotal * 0.07) + $subtotal;
         $params = array($grandTotal, $id);
-        $this->Connection->SQLNonQuery("UPDATE order_Order SET GrandTotal = ? WHERE id_Order = ?", $params);
+        $this->Connection->SQLNonQuery("UPDATE order_Order SET GrandTotal = ?, Updated = now() WHERE id_Order = ?", $params);
     }
 
     /**
@@ -236,7 +330,7 @@ class OrderManager extends _DataManager
             $id
         );
         $this->Connection->SQLNonQuery(
-            "UPDATE order_Order SET id_OrderStatus = ? WHERE id_Order = ?", $params);
+            "UPDATE order_Order SET id_OrderStatus = ?, Updated = now() WHERE id_Order = ?", $params);
     }
 
     /**
@@ -256,6 +350,5 @@ class OrderManager extends _DataManager
             );
         }
     }
-
 
 }

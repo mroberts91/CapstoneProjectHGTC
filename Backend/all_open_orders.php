@@ -63,7 +63,7 @@ try{
                 echo '<td>'.$o->getOrderItemCount().'</td>';
                 echo '<td>'.$o->getOrderStatus().'</td>';
                 echo '<th><a href="edit_order.php?id='.$o->getIdOrder().'">Edit</a></th>';
-                echo '<th><a href="complete_order.php?id='.$o->getIdOrder().'">Complete Order</a></th>';
+                echo '<th><a href="complete_order.php?id='.$o->getIdOrder().'">Clost Ticket</a></th>';
                 echo '</tr>';
             }
             ?>

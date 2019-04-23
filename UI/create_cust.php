@@ -24,7 +24,6 @@ try{
     $errormsg = $e->getMessage();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
     if (!isset($_POST['lastname'])){$errormsg .= '<p>Last Name is Required</p>'; }
     if (!isset($_POST['email'])){$errormsg .= '<p>Email is Required</p>'; }
     if(!isset($_POST['password'])){$errormsg.= '<p>Password is Required</p>';}
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             $db = new Connection();
             $cm = new CustomerManager($db);
-            $newCust = new NewCustomer($lname, $email, $fname, $addr, $city, $state, $zip, $location);
+            $newCust = new NewCustomer($lname, $email, $password, $fname, $addr, $city, $state, $zip, $location);
             if ($cm->createNewCustomer($newCust)) {
                 $postSuccess = true;
                 $postError = false;

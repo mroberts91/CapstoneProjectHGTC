@@ -3,7 +3,6 @@ use Connection\Connection;
 use Connection\ConnectionDataFactory;
 use Connection\ConnectionData;
 use Core\Department;
-
 require_once __DIR__ ."/session.php";
 require_once __DIR__ . "/loggedInCheck.php";
 require_once __DIR__ ."/init.php";
@@ -12,6 +11,9 @@ require_once __DIR__."/../../Data/db/Connection.php";
 require_once __DIR__."/../../Data/db/ConnectionData.php";
 require_once __DIR__."/../../Data/common/ConnectionDataFactory.php";
 require_once __DIR__."/../../Data/enum/Department.php";
+require_once __DIR__."/../../Data/enum/Department.php";
+$empID = $_SESSION['user_id'];
+$isLoginPage = (end(explode('/', $_SERVER['PHP_SELF'])) == 'login.php')? true : false;
 $isAdmin = false;
 if (isset($_SESSION['user_perm_level']) && !empty($_SESSION['user_perm_level'])){
     $isAdmin = ($_SESSION['user_perm_level'] == Department::$ADMIN ||
@@ -21,7 +23,7 @@ if (isset($_SESSION['user_perm_level']) && !empty($_SESSION['user_perm_level']))
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Jae Tsunami's</title>
+    <title>JT's Admin Portal</title>
     <link rel="icon" type="image/png" href="../UI/images/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="../UI/images/favicon-16x16.png" sizes="16x16" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,29 +34,9 @@ if (isset($_SESSION['user_perm_level']) && !empty($_SESSION['user_perm_level']))
     <script src="js/jquery.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-xl navbar-dark">
-    <a href="index.php"><img id="logo" src="../UI/images/white.png"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" id="homeLink" href="index.php">Home</a>-->
-<!--            </li>-->
-            <?php require_once __DIR__ ."/admin_menu.php";?>
-        </ul>
-        <form class="form-inline my-2 my-lg-0" id="logout-button" action="logout.php" method="get"
-            <?php if (!isset($_SESSION['user_id'])){ echo "hidden"; } ?>>
-            <div id="username">
-                <span><?php echo $_SESSION['user_name']; ?></span>
-                <br>
-                <span>(<?php echo $_SESSION['user_department']; ?>)</span>
-            </div>
-            <button type="submit" class="btn btn-danger my-2 my-sm-0" id="login">
-                <i class="fa fa-sign-out" aria-hidden="true"> </i> Logout</button>
-        </form>
-    </div>
-</nav>
-<div class="container">
+<?php
+    if (!$isLoginPage){
+        require_once __DIR__."/nav.php";
+        echo '<div class="container">';
+    }
+?>

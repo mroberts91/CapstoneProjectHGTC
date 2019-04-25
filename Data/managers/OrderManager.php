@@ -63,7 +63,7 @@ class OrderManager extends _DataManager
      */
     public function getAllCustomerOrdersByCustID($id){
         $params = array(
-            33,
+            38,
             $id,
             OrderStatus::$OPEN,
             OrderStatus::$NEW,
@@ -140,8 +140,8 @@ class OrderManager extends _DataManager
             $o = new Order();
             $o->setIdOrder($order['id_Order']);
             $o->setCreated(new DateTime($order['Created']));
-            $o->setSubtotal($order['Subtotal']);
-            $o->setGrandTotal($order['GrandTotal']);
+            $o->setSubtotal(($order['Subtotal'] == null)? 0.00 : $order['Subtotal']);
+            $o->setGrandTotal(($order['GrandTotal'] == null)? 0.00 : $order['GrandTotal']);
             $o->setIdEmployee($order['id_Employee']);
             $o->setEmpFirstname($order['Firstname']);
             $o->setEmpLastname($order['Lastname']);

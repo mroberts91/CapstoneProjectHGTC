@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $_SESSION['customer_name'] = $fullCustomer->getFirstname() . " " . $fullCustomer->getLastname();
                 $_SESSION['customer_email'] = $custLogin->getEmail();
                 $_SESSION['customer_cart'] = array();
-                echo '<script>window.location = "create_online_order.php"</script>';
+                echo '<script>window.location = "your_orders.php"</script>';
             } else{
                 $errormsg .= '<p>Email or Password is incorrect</p>';
                 $loginError = true;

@@ -37,7 +37,7 @@ try{
                 <th>Item Name</th>
                 <th>Category</th>
                 <th>Inventory</th>
-                <th>IsLow</th>
+                <th>Low Stock</th>
                 <th></th>
             </tr>
             </thead>
@@ -51,6 +51,7 @@ try{
                 echo '<td>'.$i->getCategoryName().'</td>';
                 echo '<td>'.$i->getInventory().'</td>';
                 echo '<td>'.$isLowStr.'</td>';
+//                echo '<th><a href="manageMenuItem.php">Update</a></th>';
                 echo '<th><a href="edit_menu_item.php?id='.$i->getIdMenuItem().'">Update</a></th>';
                 echo '</tr>';
             }

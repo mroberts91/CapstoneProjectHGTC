@@ -82,7 +82,7 @@ FROM emp_Employee e
 
 CREATE VIEW vw_cust_Manage
 AS
-SELECT
+SELECT DISTINCT
 	c.id_Customer
 		 ,c.id_Location
 		 ,l.Name AS 'PrefLocation'
@@ -95,7 +95,7 @@ SELECT
 FROM cust_Customer c
 			 JOIN cust_CustomerDetail cd
 						ON cd.id_Customer = c.id_Customer
-			 JOIN lu_Location l
+			 LEFT JOIN lu_Location l
 						ON l.id_Location = c.id_Location
 
 

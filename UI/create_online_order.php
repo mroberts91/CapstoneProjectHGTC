@@ -18,17 +18,18 @@ $orderNumber = null;
 $customer = $_SESSION['customer_id'];
 $errormsg = '';
 $presentItems = null;
+$categories = null;
 try{
     $db = new Connection();
     $mm = new MenuManager($db);
-
+    $categories = $mm->getAllMenuCatagories();
 }catch (\Exception $e){
     die($e->getMessage());
 }
 try{
     $db = new Connection();
     $om = new OrderManager($db);
-    $orderNumber = $om->createNewCustomerOrder(33, $customer);
+    $orderNumber = $om->createNewCustomerOrder(38, $customer);
 //    $presentItems = $om->getAllItemsByOrderIdForUI($orderNumber);
 //    die(json_encode($presentItems));
 }catch (\Exception $e){
@@ -118,9 +119,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         try {
                             $apps = $mm->GetAllByCatagoryCustomer(10);
                             foreach ($apps as $a){
-                                echo '<div class="btn btn-secondary col-md-5 menuItem appItem" id="'.$a->getIdMenuItem().'"  price="'.$a->getPrice().'" item="'.$a->getName().'">';
+                                echo '<div class="btn btn-secondary col-md-5 menuItem appItem"
+                                 data-toggle="tooltip" data-placement="top" title="'.$a->getName().'" id="'.$a->getIdMenuItem().'"  price="'.$a->getPrice().'" item="'.$a->getName().'">';
                                 echo '<p>'.$a->getName().'</p>';
-                                echo '<p>'.$a->getPrice().'</p>';
+                                echo '<p>$'.number_format($a->getPrice(), 2).'</p>';
                                 echo '</div>';
                             }
                         } catch (Exception $e) {
@@ -137,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                             foreach ($meals as $a){
                                 echo '<div class="btn btn-secondary col-md-5 menuItem entreeItem" id="'.$a->getIdMenuItem().'"  price="'.$a->getPrice().'" item="'.$a->getName().'">';
                                 echo '<p>'.$a->getName().'</p>';
-                                echo '<p>'.$a->getPrice().'</p>';
+                                echo '<p>$'.number_format($a->getPrice(), 2).'</p>';
                                 echo '</div>';
                             }
                         } catch (Exception $e) {
@@ -154,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                             foreach ($desserts as $a){
                                 echo '<div class="btn btn-secondary col-md-5 menuItem dessertItem" id="'.$a->getIdMenuItem().'" price="'.$a->getPrice().'" item="'.$a->getName().'">';
                                 echo '<p>'.$a->getName().'</p>';
-                                echo '<p>'.$a->getPrice().'</p>';
+                                echo '<p>$'.number_format($a->getPrice(), 2).'</p>';
                                 echo '</div>';
                             }
                         } catch (Exception $e) {
@@ -171,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                             foreach ($drinks as $a){
                                 echo '<div class="btn btn-secondary col-md-5 menuItem bevItem" id="'.$a->getIdMenuItem().'" price="'.$a->getPrice().'" item="'.$a->getName().'">';
                                 echo '<p>'.$a->getName().'</p>';
-                                echo '<p>'.$a->getPrice().'</p>';
+                                echo '<p>$'.number_format($a->getPrice(), 2).'</p>';
                                 echo '</div>';
                             }
                         } catch (Exception $e) {
@@ -221,8 +223,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <form class="form-group">
                         <label for="editItemName">Item Name</label>
                         <input class="form-control" id="editItemName" name="editItemName" value="" readonly>
-                        <label for="editItemPrice">Item Price</label>
-                        <input class="form-control" id="editItemPrice" name="editItemPrice" value="" type="number">
+                        <label for="editItemPrice" hidden>Item Price</label>
+                        <input class="form-control" id="editItemPrice" name="editItemPrice" value="" type="number" hidden>
                         <label for="editItemNote">Notes</label>
                         <input class="form-control" id="editItemNote" name="editItemNote" value="" type="text">
                     </form>

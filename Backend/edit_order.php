@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <div id="goodOptions">
     <form action="<?php echo $_SERVER['PHP_SELF'] . '?id='.$orderNumber; ?>" method="POST">
         <input type="text" value="" id="itemsToSave" name="itemsToSave" hidden>
-        <button class="btn btn-primary optionButton" type="submit" name="saveOrder">Save Order</button>
+        <button class="btn btn-primary optionButton" type="submit" name="saveOrder">Send to Kitchen</button>
     </form>
     <form action="<?php echo $_SERVER['PHP_SELF'] . '?id='.$orderNumber; ; ?>" method="POST">
         <input type="text" value="" id="itemsToComplete" name="itemsToComplete" hidden>

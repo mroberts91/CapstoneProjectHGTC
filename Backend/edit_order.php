@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <div class="col-md-12 col-xl-8">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Appitizers</a></li>
+            <li><a href="#tabs-1">Appetizers</a></li>
             <li><a href="#tabs-2">Entr&eacute;es & Salads</a></li>
             <li><a href="#tabs-3">Desserts</a></li>
             <li><a href="#tabs-4">Beverages</a></li>

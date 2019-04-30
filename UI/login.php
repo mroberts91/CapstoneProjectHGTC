@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     try{
         $db = new Connection();
         $cm = new CustomerManager($db);
+
         if (!isset($_POST['email']) || !isset($_POST['password'])){
             $errormsg .= '<p>Email or Password is incorrect</p>';
             $loginError = true;

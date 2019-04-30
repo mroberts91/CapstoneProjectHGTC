@@ -155,6 +155,37 @@ class OrderManager extends _DataManager
     }
 
     /**
+     * @return Order[]
+     * @throws \Exception
+     */
+    public function getAllCompletedOrders(){
+        $params = array(
+            OrderStatus::$COMPLETED
+        );
+        $rtn = array();
+        $result = $this->Connection->SQLRequest(
+            "SELECT * FROM vw_order_OpenOrders WHERE id_OrderStatus = ?",
+            $params
+        );
+        foreach ($result as $order){
+            $o = new Order();
+            $o->setIdOrder($order['id_Order']);
+            $o->setCreated(new DateTime($order['Created']));
+            $o->setSubtotal(($order['Subtotal'] == null)? 0.00 : $order['Subtotal']);
+            $o->setGrandTotal(($order['GrandTotal'] == null)? 0.00 : $order['GrandTotal']);
+            $o->setIdEmployee($order['id_Employee']);
+            $o->setEmpFirstname($order['Firstname']);
+            $o->setEmpLastname($order['Lastname']);
+            $o->setOrderItemCount($order['Item Count']);
+            $o->setIdOrderStatus($order['id_OrderStatus']);
+            $o->setOrderStatus($order['Name']);
+            $o->setTableNumber($order['TableNumber']);
+            array_push($rtn, $o);
+        }
+        return $rtn;
+    }
+
+    /**
      * @param OrderItem[] $items
      * @param int $idOrder
      * @return bool

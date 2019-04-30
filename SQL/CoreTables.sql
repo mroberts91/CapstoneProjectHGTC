@@ -144,3 +144,13 @@ CREATE TABLE order_OrderDetail
   FOREIGN KEY (id_Order) REFERENCES order_Order(id_Order),
   FOREIGN KEY (id_MenuItem) REFERENCES menu_MenuItem(id_MenuItem)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE core_Schedule
+(
+  id_Schedule INT NOT NULL AUTO_INCREMENT,
+  OpenTime TIME NOT NULL,
+  CloseTime TIME NOT NULL,
+  PRIMARY KEY (id_Schedule),
+  INDEX (id_Schedule),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+

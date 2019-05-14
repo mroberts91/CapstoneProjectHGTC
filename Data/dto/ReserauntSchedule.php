@@ -16,13 +16,18 @@ class ReserauntSchedule
     /**
      */
     private $CurrentDayOfWeek;
+    /**
+     *
+     */
+    private $DaysClosed;
 
     /**
      * ReserauntSchedule constructor.
      * @param string $OpenTime
      * @param int $CloseTime
+     * $@param array $DaysClosed
      */
-    public function __construct($OpenTime, $CloseTime)
+    public function __construct($OpenTime, $CloseTime, $DaysClosed)
     {
         $this->OpenTime = strtotime($OpenTime);
         $this->CloseTime = $this->OpenTime + (3600 * $CloseTime);
@@ -30,6 +35,7 @@ class ReserauntSchedule
 //        $this->CloseTime = ($CloseTime == null)? $CloseTime = date(time()) : date('h:i:s',strtotime($CloseTime));
         $this->CurrentDate = date(DateTime::ISO8601);
         $this->CurrentDayOfWeek = date('N');
+        $this->DaysClosed = $DaysClosed;
     }
 
     /**
@@ -92,6 +98,23 @@ class ReserauntSchedule
     public function getCurrentTime(){
         return date("h:i", time());
     }
+
+    /**
+     * @return array
+     */
+    public function getDaysClosed()
+    {
+        return $this->DaysClosed;
+    }
+
+    /**
+     * @param mixed $DaysClosed
+     */
+    public function setDaysClosed($DaysClosed)
+    {
+        $this->DaysClosed = $DaysClosed;
+    }
+
 
 
 

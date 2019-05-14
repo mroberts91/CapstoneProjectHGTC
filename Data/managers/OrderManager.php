@@ -160,11 +160,12 @@ class OrderManager extends _DataManager
      */
     public function getAllCompletedOrders(){
         $params = array(
-            OrderStatus::$COMPLETED
+            OrderStatus::$COMPLETED,
+            OrderStatus::$CANCELLED
         );
         $rtn = array();
         $result = $this->Connection->SQLRequest(
-            "SELECT * FROM vw_order_OpenOrders WHERE id_OrderStatus = ?",
+            "SELECT * FROM vw_order_OpenOrders WHERE id_OrderStatus IN (?,?)",
             $params
         );
         foreach ($result as $order){

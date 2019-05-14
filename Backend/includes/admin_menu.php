@@ -57,7 +57,7 @@ if ($createOrders) {
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="all_open_orders.php">View All Open Orders</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Order Report</a>
+            <a class="dropdown-item" href="order_report.php">Order Report</a>
         </div>
     </li>
 ';

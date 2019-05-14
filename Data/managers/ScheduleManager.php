@@ -26,11 +26,12 @@ class ScheduleManager extends _DataManager
     public function getRestrauntSchedule(){
         date_default_timezone_set("America/New_York");
         $result = $this->Connection->SQLRequest(
-            "SELECT OpenTime, CloseTime FROM core_Schedule"
+            "SELECT OpenTime, CloseTime FROM core_Schedule WHERE id_Schedule = 1"
         );
         $curDate = date('Y-m-d');
         $OpenTime = $curDate." ".$result[0]['OpenTime'];
         $CloseTime = $result[0]['CloseTime'];
-        return new ReserauntSchedule($OpenTime, $CloseTime);
+        $DaysClosed = array((int)$result[0]['DaysClosed']);
+        return new ReserauntSchedule($OpenTime, $CloseTime, $DaysClosed);
     }
 }

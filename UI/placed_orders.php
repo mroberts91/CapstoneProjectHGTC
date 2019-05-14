@@ -66,6 +66,7 @@ try {
                 <tr><th>Expected Pickup Time</th><td class="right" colspan="2"><?php echo date('m-d-Y H:i A', $order->getDateReady()->getTimestamp()); ?></td></tr>
                 <tr><th>Number of Items</th><td class="right" colspan="2"><?php echo $order->getOrderItemCount(); ?></td></tr>
                 <tr><th>Subtotal</th><td class="right" colspan="2">$<?php echo number_format($order->getSubtotal(), 2);?></td></tr>
+                <tr><th>Tax</th><td class="right" colspan="2">$<?php echo number_format($order->getSubtotal() * 0.07, 2);?></td></tr>
                 <tr><th>Grand Total</th><td class="right"  colspan="2">$<?php echo number_format($order->getGrandTotal(), 2);?></td></tr>
             </tbody>
         </table>

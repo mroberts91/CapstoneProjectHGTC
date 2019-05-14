@@ -37,6 +37,10 @@ class Order extends _DataEntity
      */
     private $id_Employee;
     /**
+     * @var int
+     */
+    private $id_Customer;
+    /**
      * @var string
      */
     private $EmpFirstname;
@@ -65,6 +69,10 @@ class Order extends _DataEntity
      * @var int
      */
     private $TableNumber;
+    /**
+     * @var \DateTime
+     */
+    private $DateReady;
 
     /**
      * Order constructor.
@@ -84,6 +92,8 @@ class Order extends _DataEntity
         $this->id_OrderStatus = null;
         $this->OrderStatus = null;
         $this->TableNumber = null;
+        $this->id_Customer = null;
+        $this->DateReady = null;
     }
 
     /**
@@ -277,6 +287,39 @@ class Order extends _DataEntity
     {
         $this->TableNumber = $TableNumber;
     }
+
+    /**
+     * @return int
+     */
+    public function getIdCustomer()
+    {
+        return $this->id_Customer;
+    }
+
+    /**
+     * @param int $id_Customer
+     */
+    public function setIdCustomer(int $id_Customer)
+    {
+        $this->id_Customer = $id_Customer;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateReady()
+    {
+        return $this->DateReady;
+    }
+
+    /**
+     * @param \DateTime $DateReady
+     */
+    public function setDateReady(\DateTime $DateReady)
+    {
+        $this->DateReady = $DateReady;
+    }
+
 
 
 

@@ -13,7 +13,7 @@ class ConnectionData
     /**
      * @var string Database name
      */
-    private static $dbname = "groupc19_jae";
+    private static $dbname = "groupc19_jt";
     /**
      * @var string Datbase User
      */

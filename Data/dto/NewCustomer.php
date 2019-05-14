@@ -83,7 +83,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getFirstname(): string
+    public function getFirstname()
     {
         return $this->Firstname != null ? $this->Firstname : "";
     }
@@ -91,7 +91,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $Firstname
      */
-    public function setFirstname(string $Firstname): void
+    public function setFirstname(string $Firstname)
     {
         $this->Firstname = $Firstname;
     }
@@ -99,7 +99,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname()
     {
         return $this->Lastname;
     }
@@ -107,7 +107,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $Lastname
      */
-    public function setLastname(string $Lastname): void
+    public function setLastname(string $Lastname)
     {
         $this->Lastname = $Lastname;
     }
@@ -115,7 +115,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getAddress(): string
+    public function getAddress()
     {
         return $this->Address != null ? $this->Address : "";
     }
@@ -123,7 +123,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $Address
      */
-    public function setAddress(string $Address): void
+    public function setAddress(string $Address)
     {
         $this->Address = $Address;
     }
@@ -131,7 +131,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getCity(): string
+    public function getCity()
     {
         return $this->City != null ? $this->City : "";
     }
@@ -139,7 +139,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $City
      */
-    public function setCity(string $City): void
+    public function setCity(string $City)
     {
         $this->City = $City;
     }
@@ -147,7 +147,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getState(): string
+    public function getState()
     {
         return $this->State != null ? $this->State : "";
     }
@@ -155,7 +155,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $State
      */
-    public function setState(string $State): void
+    public function setState(string $State)
     {
         $this->State = $State;
     }
@@ -163,7 +163,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getZip(): string
+    public function getZip()
     {
         return $this->Zip != null ? $this->Zip : "";
     }
@@ -171,7 +171,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $Zip
      */
-    public function setZip(string $Zip): void
+    public function setZip(string $Zip)
     {
         $this->Zip = $Zip;
     }
@@ -179,7 +179,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->Email;
     }
@@ -187,7 +187,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $Email
      */
-    public function setEmail(string $Email): void
+    public function setEmail(string $Email)
     {
         $this->Email = $Email;
     }
@@ -195,7 +195,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->Password;
     }
@@ -203,7 +203,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param string $Password
      */
-    public function setPassword(string $Password): void
+    public function setPassword(string $Password)
     {
         $this->Password = $Password;
     }
@@ -211,7 +211,7 @@ class NewCustomer extends _DataEntity
     /**
      * @return bool
      */
-    public function isValid(): bool
+    public function isValid()
     {
         return $this->IsValid;
     }
@@ -219,7 +219,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param bool $IsValid
      */
-    public function setIsValid(bool $IsValid): void
+    public function setIsValid(bool $IsValid)
     {
         $this->IsValid = $IsValid;
     }
@@ -235,7 +235,7 @@ class NewCustomer extends _DataEntity
     /**
      * @param int $Location
      */
-    public function setLocation(int $Location): void
+    public function setLocation(int $Location)
     {
         $this->Location = $Location;
     }

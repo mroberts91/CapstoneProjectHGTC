@@ -22,7 +22,7 @@ try{
     $mm = new MenuManager($db);
 
 }catch (\Exception $e){
-
+    die($e->getMessage());
 }
 try{
     $db = new Connection();
@@ -30,7 +30,8 @@ try{
     $presentItems = $om->getAllItemsByOrderIdForUI($orderNumber);
 //    die(json_encode($presentItems));
 }catch (\Exception $e){
-
+    var_dump($presentItems);
+    die($e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -47,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $newItem->setIdMenuItem((int)$item['id_MenuItem']);
                 $newItem->setItemPrice((float)$item['ItemPrice']);
                 $newItem->setNotes(($item['Notes'] == null) ? "" : $item['Notes']);
+                $newItem->setIsCooked((int)$item['IsCooked']);
                 $newItem->setIsNew(($item['IsNew'] == 1)? true : false);
                 $newItem->setToDelete(($item['ToDelete'] == 1)? true : false);
                 array_push($itemsToSave, $newItem);
@@ -94,11 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <div id="goodOptions">
     <form action="<?php echo $_SERVER['PHP_SELF'] . '?id='.$orderNumber; ?>" method="POST">
         <input type="text" value="" id="itemsToSave" name="itemsToSave" hidden>
-        <button class="btn btn-primary optionButton" type="submit" name="saveOrder">Save Order</button>
+        <button class="btn btn-primary optionButton" type="submit" name="saveOrder">Send to Kitchen</button>
     </form>
     <form action="<?php echo $_SERVER['PHP_SELF'] . '?id='.$orderNumber; ; ?>" method="POST">
         <input type="text" value="" id="itemsToComplete" name="itemsToComplete" hidden>
-        <button class="btn btn-success optionButton" type="submit" name="completeOrder">Complete Order</button>
+        <button class="btn btn-success optionButton" type="submit" name="completeOrder">Close Ticket</button>
     </form>
 </div>
 <br>
@@ -106,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <div class="col-md-12 col-xl-8">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Appitizers</a></li>
+            <li><a href="#tabs-1">Appetizers</a></li>
             <li><a href="#tabs-2">Entr&eacute;es & Salads</a></li>
             <li><a href="#tabs-3">Desserts</a></li>
             <li><a href="#tabs-4">Beverages</a></li>

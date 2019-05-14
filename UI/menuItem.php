@@ -1,32 +1,28 @@
 <?php
 
-require_once  'header.php';
-//DATABASE CONNECTION
-require_once "conn.php";
+use Connection\Connection;
+use Menu\MenuManager;
 
-$sqlselect = "SELECT * from menu_MenuItem where id_Category = '10'";
-$result = $db->prepare($sqlselect);
-$result->execute();
-$result = $db-> query($sqlselect);
-
-$sqlselect2 = "SELECT * from menu_MenuItem where id_Category = '20'";
-$result2 = $db->prepare($sqlselect2);
-$result2->execute();
-$result2 = $db-> query($sqlselect2);
-
-$sqlselect3 = "SELECT * from menu_MenuItem where id_Category = '30'";
-$result3 = $db->prepare($sqlselect3);
-$result3 ->execute();
-$result3 = $db-> query($sqlselect3);
-
-$sqlselect4 = "SELECT * from menu_MenuItem where id_Category = '40'";
-$result4 = $db->prepare($sqlselect4);
-$result4 ->execute();
-$result4 = $db-> query($sqlselect4);
-
-
+require_once __DIR__."/header.php";
+require_once __DIR__."/../Data/managers/MenuManager.php";
+$catagories = null;
+try {
+    $conn = new Connection();
+    $mm = new MenuManager($conn);
+    $catagories = $mm->getAllMenuCatagories();
+} catch (Exception $e) {
+    die($e->getMessage());
+}
 ?>
 <link rel="stylesheet" href="styles/menuItem.css">
+<style>
+    .price{
+        float: right;
+    }
+    h3{
+        margin-top: .5em;
+    }
+</style>
 <br>
 <div class="wrapper">
     <h1 class="title text-center">Our Menu</h1>
@@ -44,35 +40,35 @@ $result4 = $db-> query($sqlselect4);
             </div>
         </div>
         <div class="col-md-12 col-lg-8" id="menu-container">
-            <div class="menu" align="center"al>
-                <H2>Appetizers</H2>
+            <div class="row" id="table-div">
                 <?php
-                while ( $row = $result-> fetch() )
-                {
-                    echo '<tr><td>' . $row['Name'] . '</td><td> ' . $row['Price'] . '</td></tr><br>';
-                }
-                ?>
-                <H2>Entrees and Salads</H2>
-                <?php
-                while ( $row = $result2-> fetch() )
-                {
-                    echo '<tr><td>' . $row['Name'] . '</td><td> ' . $row['Price'] . '</td></tr><br>';
-                }
-                ?>
-                <H2>Desserts</H2>
-                <?php
-                while ( $row = $result3 -> fetch() )
-                {
-                    echo '<tr><td>' . $row['Name'] . '</td><td> ' . $row['Price'] . '</td></tr><br>';
-                }
-                ?>
-                <H2>Beverages</H2>
-                <?php
-                while ( $row = $result4 -> fetch() )
-                {
-                    echo '<tr><td>' . $row['Name'] . '</td><td> ' . $row['Price'] . '</td></tr><br>';
-                }
-                ?>
+                foreach ($catagories as $catagory) {
+                    $items = array();
+                    try {
+                        $items = $mm->GetAllByCatagory($catagory->getIdCatagory());
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
+                    echo '<div class="col-md-12 menu-section">
+                    <h3>'.$catagory->getName().'</h3>
+                    <table class="table">
+                        <thead><tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr></thead>
+                        <tbody>';
+                    foreach ($items as $item){
+                        echo '<tr>
+                    <td scope="row">'.$item->getName().'</td>
+                    <td><span class="price">$'.$item->getPrice().'</span></td>
+                     </tr>';
+                         }
+                         echo '
+                 </tbody>
+                 </table>
+                 </div><!-- End Col -->';
+                     }
+                     ?>
             </div>
         </div>
         <div class="col-md-2 d-none d-lg-block">

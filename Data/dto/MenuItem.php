@@ -47,7 +47,7 @@ class MenuItem extends _DataEntity
             $this->Name = $array['Name'];
             $this->Price = $array['Price'];
             $this->ShortName = $array['ShortName'];
-            $this->id_Catagory = $array['id_Catagory'];
+            $this->id_Catagory = $array['id_Category'];
             return true;
         } catch (\Exception $e){
             return false;
@@ -66,7 +66,7 @@ class MenuItem extends _DataEntity
     /**
      * @param mixed $id_MenuItem
      */
-    public function setIdMenuItem($id_MenuItem): void
+    public function setIdMenuItem($id_MenuItem)
     {
         $this->id_MenuItem = $id_MenuItem;
     }
@@ -82,13 +82,13 @@ class MenuItem extends _DataEntity
     /**
      * @param mixed $Name
      */
-    public function setName($Name): void
+    public function setName($Name)
     {
         $this->Name = $Name;
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getPrice()
     {
@@ -98,7 +98,7 @@ class MenuItem extends _DataEntity
     /**
      * @param mixed $Price
      */
-    public function setPrice($Price): void
+    public function setPrice($Price)
     {
         $this->Price = $Price;
     }
@@ -114,7 +114,7 @@ class MenuItem extends _DataEntity
     /**
      * @param mixed $ShortName
      */
-    public function setShortName($ShortName): void
+    public function setShortName($ShortName)
     {
         $this->ShortName = $ShortName;
     }
@@ -130,7 +130,7 @@ class MenuItem extends _DataEntity
     /**
      * @param mixed $id_Catagory
      */
-    public function setIdCatagory($id_Catagory): void
+    public function setIdCatagory($id_Catagory)
     {
         $this->id_Catagory = $id_Catagory;
     }
